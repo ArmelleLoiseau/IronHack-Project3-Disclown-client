@@ -1,31 +1,34 @@
-import React from 'react';
+import React, { useState } from "react";
+// import APIHandler from "../api/APIHandler";
+import axios from "axios";
 
 const Login = () => {
-    const [user, setUser]=useState({
-        username : "test",
-        password : "1234"
-    });
+  const [user, setUser] = useState({
+    email: "test@test.fr",
+    password: "1234",
+  });
 
-    const handleSubmit = async () => {
-        e.preventDefault();
-        try {
-        await APIHandler.post('/signup', user)
-        console.log("OK")
-        }
-        catch(e){
-            console.error(e)
-        }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post("http://localhost:4000/login", user);
+      console.log("OK");
+    } catch (err) {
+      console.error(err);
     }
+  };
 
-  return <div>
-       <form onSubmit={handleSubmit} onChange={setUser}>
-      <label htmlFor="email">email</label>
-      <input type="text" name='email' value={user.email} />
-      <label htmlFor="password">password</label>
-      <input type="text" name='password' value={user.password}/>
-      <button>Sign up</button>
+  return (
+    <div>
+      <form onSubmit={handleSubmit} onChange={setUser}>
+        <label htmlFor="email">email</label>
+        <input type="text" name="email" defaultValue={user.email} />
+        <label htmlFor="password">password</label>
+        <input type="text" name="password" defaultValue={user.password} />
+        <button>Log in</button>
       </form>
-  </div>;
+    </div>
+  );
 };
 
 export default Login;

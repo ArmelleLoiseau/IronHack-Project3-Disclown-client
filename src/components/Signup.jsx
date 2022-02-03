@@ -1,40 +1,40 @@
-import axios from 'axios';
-import React, {useState} from 'react';
-import APIHandler from '../api/APIHandler';
+import axios from "axios";
+import React, { useState } from "react";
+// import APIHandler from '../api/APIHandler';
+// import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
-const [user, setUser]=useState({
-    username : "test",
-    email : "test@test.fr",
-    password : "1234"
-});
-const navigate = useNavigate();
+  const [user, setUser] = useState({
+    username: "test",
+    email: "test@test.fr",
+    password: "1234",
+  });
+  //   const navigate = useNavigate();
 
-const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-    await APIHandler.post('/signup', user)
-    console.log("OK")
-    navigate("/login")
+      await axios.post("http://localhost:4000/signup", user);
+      console.log("OK");
+      //   navigate("/login");
+    } catch (e) {
+      console.error(e);
     }
-    catch(e){
-        console.error(e)
-    }
-}
+  };
 
-
-
-  return <div>
+  return (
+    <div>
       <form onSubmit={handleSubmit} onChange={setUser}>
-      <label htmlFor="username">username</label>
-      <input type="text"  name='username' value={user.username}/>
-      <label htmlFor="email">email</label>
-      <input type="text" name='email' value={user.email} />
-      <label htmlFor="password">password</label>
-      <input type="text" name='password' value={user.password}/>
-      <button>Sign up</button>
+        <label htmlFor="username">username</label>
+        <input type="text" name="username" defaultValue={user.username} />
+        <label htmlFor="email">email</label>
+        <input type="text" name="email" defaultValue={user.email} />
+        <label htmlFor="password">password</label>
+        <input type="text" name="password" defaultValue={user.password} />
+        <button>Sign up</button>
       </form>
-  </div>;
+    </div>
+  );
 };
 
 export default Signup;
