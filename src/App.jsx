@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 
-const socket = io("htpp://localhost:4000", {
+const socket = io("http://localhost:4000", {
   withCredentials: true,
 });
 
