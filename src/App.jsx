@@ -8,9 +8,9 @@ const socket = io("htpp://localhost:4000", {
 });
 
 function App() {
-  socket.on("connect", () => {
-    console.log(`you connected with the id: ${socket.id}`);
-  });
+  // socket.emit("connection", () => {
+  //   console.log(`you connected with the id: ${socket.id}`);
+  // });
 
   return (
     <div className="App">
