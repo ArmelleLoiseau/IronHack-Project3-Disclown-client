@@ -1,13 +1,12 @@
 import axios from "axios";
 import React, { useState } from "react";
-// import APIHandler from '../api/APIHandler';
 // import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [user, setUser] = useState({
-    username: "test",
-    email: "test@test.fr",
-    password: "1234",
+    username: "",
+    email: "",
+    password: "",
   });
   //   const navigate = useNavigate();
 
@@ -24,13 +23,28 @@ const Signup = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit} onChange={setUser}>
+      <form onSubmit={handleSubmit}>
         <label htmlFor="username">username</label>
-        <input type="text" name="username" defaultValue={user.username} />
+        <input
+          type="text"
+          name="username"
+          value={user.username}
+          onChange={(e) => setUser({ ...user, username: e.target.value })}
+        />
         <label htmlFor="email">email</label>
-        <input type="text" name="email" defaultValue={user.email} />
+        <input
+          type="text"
+          name="email"
+          value={user.email}
+          onChange={(e) => setUser({ ...user, email: e.target.value })}
+        />
         <label htmlFor="password">password</label>
-        <input type="text" name="password" defaultValue={user.password} />
+        <input
+          type="text"
+          name="password"
+          value={user.password}
+          onChange={(e) => setUser({ ...user, password: e.target.value })}
+        />
         <button>Sign up</button>
       </form>
     </div>
