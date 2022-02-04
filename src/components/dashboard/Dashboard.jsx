@@ -9,7 +9,11 @@ import ChanList from "./ChanList";
 const Dashboard = () => {
   // const { isLoggedIn, user } = useContext(AuthContext);
   const [users, setUsers] = useState([]);
+  const [chans, setChans] = useState([]);
 
+  const addChan = (addedChan) => {
+setChans([...chans, addedChan])
+  };
   // const initReactiveProperties = (user) => {
   //   user.hasNewMessages = false;
   // };
@@ -41,8 +45,8 @@ const Dashboard = () => {
     <div>
       <h1>Dashboard</h1>
       <UsersList users={users} />
-      <CreateChan />
-      <ChanList />
+      <CreateChan addChan={addChan}/>
+      <ChanList setChans={setChans} chans={chans} />
       <Chat />
       {/* {isLoggedIn && (
         <>

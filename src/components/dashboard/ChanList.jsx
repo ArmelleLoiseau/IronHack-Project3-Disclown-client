@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
-const ChanList = () => {
-  const [chans, setChans] = useState([]);
+const ChanList = ({chans, setChans}) => {
+  
 
   useEffect(() => {
     axios
@@ -17,7 +18,7 @@ const ChanList = () => {
   return (
     <div>
       {chans.map((chan) => {
-        return <p key={chan._id}>{chan.name}</p>;
+        return <Link to={`/chan/${chan._id}`} key={chan._id}><p>{chan.name}</p></Link>;
       })}
     </div>
   );
