@@ -1,11 +1,9 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-// import { io } from "socket.io-client";
-
-// import { AuthContext } from "../../context/Auth.context";
-
 import socket from "../../socket";
+
+// contexts
 
 const Login = () => {
   const [user, setUser] = useState({
@@ -19,12 +17,21 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:4000/login", user);
-      console.log("OK");
+      // send login info to DB to log the user in
+      const loggedInUser = await axios.post(
+        "http://localhost:4000/login",
+        user
+      );
+
+      // save user's email in  socket.auth
       let email = user.email;
       socket.auth = { email };
       console.log(email);
+
+      // connect to socket
       socket.connect();
+
+      // redirect user to dashboard
       navigate("/dashboard");
     } catch (err) {
       socket.on("connect_error", (err) => {

@@ -1,21 +1,30 @@
 import axios from "axios";
-import React, { useState } from "react";
-// import { useNavigate } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+// contexts
 
 const Signup = () => {
+  // get user from Auth Context
   const [user, setUser] = useState({
     username: "",
     email: "",
     password: "",
   });
-  //   const navigate = useNavigate();
+
+  const navigate = useNavigate();
+
+  if (!user) return <p>loading...</p>;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:4000/signup", user);
-      console.log("OK");
-      //   navigate("/login");
+      // send the sign-up info to DB to create new user
+      const newUser = await axios.post("http://localhost:4000/signup", user);
+      console.log("SIGN-UP -- new user is :", newUser.data.user);
+
+      // redirect the user to login page
+      navigate("/login");
     } catch (e) {
       console.error(e);
     }
@@ -23,6 +32,7 @@ const Signup = () => {
 
   return (
     <div>
+      {/* if user already has token, navigate to dashboard */}
       <form onSubmit={handleSubmit}>
         <label htmlFor="username">username</label>
         <input
@@ -47,6 +57,9 @@ const Signup = () => {
         />
         <button>Sign up</button>
       </form>
+      <Link to={`/login`}>
+        <p> Already registered ? Sign-in here</p>
+      </Link>
     </div>
   );
 };

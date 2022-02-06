@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const ChanList = ({chans, setChans}) => {
-  
+// contexts
+import { ChanContext } from "../../context/chan.context";
+
+const ChanList = () => {
+  const { chans, setChans, addChan } = useContext(ChanContext);
 
   useEffect(() => {
     axios
@@ -18,7 +21,11 @@ const ChanList = ({chans, setChans}) => {
   return (
     <div>
       {chans.map((chan) => {
-        return <Link to={`/chan/${chan._id}`} key={chan._id}><p>{chan.name}</p></Link>;
+        return (
+          <Link to={`/chan/${chan._id}`} key={chan._id}>
+            <p>{chan.name}</p>
+          </Link>
+        );
       })}
     </div>
   );
