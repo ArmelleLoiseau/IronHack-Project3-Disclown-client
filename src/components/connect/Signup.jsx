@@ -20,7 +20,7 @@ const Signup = () => {
     e.preventDefault();
     try {
       // send the sign-up info to DB to create new user
-      const newUser = await axios.post("http://localhost:4000/signup", user);
+      const newUser = await axios.post("http://localhost:4001/signup", user);
       console.log("SIGN-UP -- new user is :", newUser.data.user);
 
       // redirect the user to login page

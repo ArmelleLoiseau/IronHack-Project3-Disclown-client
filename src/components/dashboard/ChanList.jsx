@@ -10,7 +10,7 @@ const ChanList = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/chan")
+      .get("http://localhost:4001/chan")
       .then((dbResponse) => setChans(dbResponse.data))
       .catch((e) => console.error(e));
   }, []);

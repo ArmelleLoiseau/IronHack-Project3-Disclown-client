@@ -19,7 +19,7 @@ const Login = () => {
     try {
       // send login info to DB to log the user in
       const loggedInUser = await axios.post(
-        "http://localhost:4000/login",
+        "http://localhost:4001/login",
         user
       );
 

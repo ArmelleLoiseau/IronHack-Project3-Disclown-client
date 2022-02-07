@@ -23,7 +23,7 @@ const CreateChan = () => {
   const handleClick = async (e) => {
     e.preventDefault;
     try {
-      const newChan = await axios.post("http://localhost:4000/chan", chan);
+      const newChan = await axios.post("http://localhost:4001/chan", chan);
       console.log("success");
       addChan(newChan.data);
       console.log("db response", newChan.data);
