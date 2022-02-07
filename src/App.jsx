@@ -11,17 +11,15 @@ import Dashboard from "./components/dashboard/Dashboard";
 //   withCredentials: true,
 // });
 
-import socket from "./socket";
-
 function App() {
   // socket.emit("connection", () => {
   //   console.log(`you connected with the id: ${socket.id}`);
   // });
   // const { isLoggedIn, isLoading } = useContext(AuthContext);
 
-  socket.onAny((event, ...args) => {
-    console.log(event, args);
-  });
+  // socket.onAny((event, ...args) => {
+  //   console.log(event, args);
+  // });
 
   return (
     <div className="App">

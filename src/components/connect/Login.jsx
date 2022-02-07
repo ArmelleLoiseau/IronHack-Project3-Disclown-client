@@ -1,7 +1,10 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import socket from "../../socket";
+import { Link, useNavigate } from "react-router-dom";
+import { io } from "socket.io-client";
+
+import { AuthContext } from "./../../context/auth.context";
+
 
 // contexts
 
@@ -10,37 +13,50 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const [errorMessage, setErrorMessage] = useState(undefined);
+
+  const { storeToken, authenticateUser, isLoggedIn } = useContext(AuthContext);
 
   const navigate = useNavigate();
+
+  // redirect the user to the dashboard directly if he's already logged-in
+  useEffect(() => {
+    authenticateUser();
+    if (isLoggedIn) navigate("/dashboard");
+  }, [isLoggedIn]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
+<<<<<<< HEAD
       // send login info to DB to log the user in
       const loggedInUser = await axios.post(
         "http://localhost:4001/login",
         user
       );
+=======
+      const dbResponse = await axios.post("http://localhost:4001/login", user);
+>>>>>>> df55132499c36f13e4a9a2212124a96617ce6452
 
-      // save user's email in  socket.auth
-      let email = user.email;
-      socket.auth = { email };
-      console.log(email);
+      // set socket.auth to user.email and connect to socket
+      // let email = user.email;
+      // socket.auth = { email };
+      // console.log(email);
+      // socket.connect();
 
-      // connect to socket
-      socket.connect();
+      // store the jwt token in local storage
+      storeToken(dbResponse.data.authToken);
 
-      // redirect user to dashboard
+      //verify the token
+      authenticateUser();
+
+      // redirect to dashboard
+
       navigate("/dashboard");
     } catch (err) {
-      socket.on("connect_error", (err) => {
-        if (err.message === "invalid username") {
-          email = false;
-        }
-      });
-
-      console.error(err);
+      const errorDescription = error.response.data.message;
+      setErrorMessage(errorDescription);
     }
   };
 
@@ -63,6 +79,8 @@ const Login = () => {
         />
         <button>Log in</button>
       </form>
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
+      <Link to={"/"}> Not a member yet ? Sign-up !</Link>
     </div>
   );
 };
