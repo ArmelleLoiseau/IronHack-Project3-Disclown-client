@@ -5,6 +5,9 @@ import { io } from "socket.io-client";
 
 import { AuthContext } from "./../../context/auth.context";
 
+
+// contexts
+
 const Login = () => {
   const [user, setUser] = useState({
     email: "",
@@ -41,6 +44,7 @@ const Login = () => {
       authenticateUser();
 
       // redirect to dashboard
+
       navigate("/dashboard");
     } catch (err) {
       const errorDescription = error.response.data.message;

@@ -4,7 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { AuthContext } from "./../../context/auth.context";
 
+
 const Signup = () => {
+  // get user from Auth Context
   const [user, setUser] = useState({
     username: "",
     email: "",
@@ -20,10 +22,12 @@ const Signup = () => {
     if (isLoggedIn) navigate("/dashboard");
   }, [isLoggedIn]);
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await axios.post("http://localhost:4001/signup", user);
+
       navigate("/login");
     } catch (e) {
       console.error(e);
@@ -32,6 +36,7 @@ const Signup = () => {
 
   return (
     <div>
+      {/* if user already has token, navigate to dashboard */}
       <form onSubmit={handleSubmit}>
         <label htmlFor="username">username</label>
         <input
@@ -60,6 +65,7 @@ const Signup = () => {
       {errorMessage && <p className="error-message">{errorMessage}</p>}
 
       <Link to={"/login"}> Already have an account ? Click here to login</Link>
+
     </div>
   );
 };

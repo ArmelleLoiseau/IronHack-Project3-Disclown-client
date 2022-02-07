@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import useAuth from "../../context/useAuth";
 // import components
+
 import UsersList from "./UsersList";
 import Chat from "./Chat";
 import CreateChan from "./CreateChan";
@@ -31,6 +32,7 @@ const Dashboard = () => {
   const addChan = (addedChan) => {
     setChans([...chans, addedChan]);
   };
+
   // const initReactiveProperties = (user) => {
   //   user.hasNewMessages = false;
   // };
@@ -52,6 +54,7 @@ const Dashboard = () => {
   //     users.push(user);
   //   });
 
+
   //   setUsers(users);
   //   console.log("--->", users);
   // });
@@ -64,6 +67,7 @@ const Dashboard = () => {
       <UsersList users={users} />
       <CreateChan addChan={addChan} />
       <ChanList setChans={setChans} chans={chans} />
+
       <Chat />
       {/* {isLoggedIn && (
         <>

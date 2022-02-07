@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 
-const UsersList = ({ users }) => {
+
+// Contexts
+import { UserContext } from "../../context/user.context";
+
+const UsersList = () => {
   const [usersConnected, setUsersConnected] = useState([]);
+  const { users } = useContext(UserContext);
 
   if (!usersConnected) return <p>loading...</p>;
-
+  console.log(users);
   return (
     <div>
       <p> users list</p>
