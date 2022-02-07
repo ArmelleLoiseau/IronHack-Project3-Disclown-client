@@ -8,7 +8,7 @@ function SocketProviderWrapper(props) {
   const ConnectWithSocket = (user, userToken) => {
     const jwtToken = userToken;
     socket.auth = {
-      email: user.email,
+      email: user?.email,
       token: jwtToken,
     };
 

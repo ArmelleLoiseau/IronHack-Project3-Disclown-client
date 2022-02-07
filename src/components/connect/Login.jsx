@@ -21,7 +21,7 @@ const Login = () => {
   useEffect(() => {
     authenticateUser();
     if (isLoggedIn) navigate("/dashboard");
-  }, [authenticateUser]);
+  }, [isLoggedIn]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

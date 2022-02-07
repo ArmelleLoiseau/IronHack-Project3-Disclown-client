@@ -5,10 +5,12 @@ const API_URL = "http://localhost:4000";
 
 const AuthContext = React.createContext();
 
-function AuthProviderWrapper(props) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [user, setUser] = useState(null);
+function AuthProviderWrapper({ children }) {
+  const [auth, setAuth] = useState({
+    currentUser: null,
+    isLoading: true,
+    isLoggedIn: false,
+  });
 
   const storeToken = (token) => {
     localStorage.setItem("authToken", token);
@@ -29,26 +31,14 @@ function AuthProviderWrapper(props) {
         .get(`${API_URL}/auth/verify`, {
           headers: { Authorization: `Bearer ${storedToken}` },
         })
-        .then((response) => {
-          // If the server verifies that JWT token is valid
-          const user = response.data;
-          // Update state variables
-          setIsLoggedIn(true);
-          setIsLoading(false);
-          setUser(user);
+        .then((user) => {
+          setAuth({ currentUser: user, isLoading: false, isLoggedIn: true });
         })
-        .catch((error) => {
-          // If the server sends an error response (invalid token)
-          // Update state variables
-          setIsLoggedIn(false);
-          setIsLoading(false);
-          setUser(null);
+        .catch((e) => {
+          setAuth({ currentUser: null, isLoading: false, isLoggedIn: false });
         });
     } else {
-      // If the token is not available (or is removed)
-      setIsLoggedIn(false);
-      setIsLoading(false);
-      setUser(null);
+      setAuth({ currentUser: null, isLoading: false, isLoggedIn: false });
     }
   };
 
@@ -65,19 +55,17 @@ function AuthProviderWrapper(props) {
     authenticateUser();
   };
 
+  const Authvalues = {
+    currentUser: auth.currentUser,
+    isLoading: auth.isLoading,
+    isLoggedIn: auth.isLoggedIn,
+    storeToken,
+    authenticateUser,
+    logOutUser,
+  };
+
   return (
-    <AuthContext.Provider
-      value={{
-        isLoggedIn,
-        isLoading,
-        user,
-        storeToken,
-        authenticateUser,
-        logOutUser,
-      }}
-    >
-      {props.children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={Authvalues}>{children}</AuthContext.Provider>
   );
 }
 

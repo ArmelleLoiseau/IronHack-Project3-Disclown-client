@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import socket from "../../socket";
 import ConnectWithSocket from "../../socketConnection/ConnectWithSocket";
-
+import useAuth from "../../context/useAuth";
 // import components
 import UsersList from "./UsersList";
 import Chat from "./Chat";
@@ -9,15 +9,15 @@ import CreateChan from "./CreateChan";
 import ChanList from "./ChanList";
 
 // import contexts
-import { AuthContext } from "../../context/Auth.context";
 import { SocketContext } from "../../context/socket.context";
 
 const Dashboard = () => {
-  const { user, authenticateUser } = useContext(AuthContext);
+  const { currentUser, authenticateUser } = useAuth();
   const [users, setUsers] = useState([]);
   const [chans, setChans] = useState([]);
 
-  const { ConnectWithSocket } = useContext(SocketContext);
+  const connectWithSocket = useContext(SocketContext);
+
   // establish socket connection
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const Dashboard = () => {
       //log out and redirect to "/"
     } else {
       authenticateUser();
-      ConnectWithSocket(user, userToken);
+      connectWithSocket(currentUser, userToken);
     }
   }, []);
 
