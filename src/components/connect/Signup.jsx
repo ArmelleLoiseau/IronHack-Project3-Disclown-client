@@ -1,8 +1,9 @@
 import axios from "axios";
-import React, { useContext, useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-// contexts
+import { AuthContext } from "./../../context/auth.context";
+
 
 const Signup = () => {
   // get user from Auth Context
@@ -11,19 +12,22 @@ const Signup = () => {
     email: "",
     password: "",
   });
+  const [errorMessage, setErrorMessage] = useState(undefined);
+  const { authenticateUser, isLoggedIn } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
-  if (!user) return <p>loading...</p>;
+  useEffect(() => {
+    authenticateUser();
+    if (isLoggedIn) navigate("/dashboard");
+  }, [isLoggedIn]);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // send the sign-up info to DB to create new user
-      const newUser = await axios.post("http://localhost:4000/signup", user);
-      console.log("SIGN-UP -- new user is :", newUser.data.user);
+      await axios.post("http://localhost:4001/signup", user);
 
-      // redirect the user to login page
       navigate("/login");
     } catch (e) {
       console.error(e);
@@ -57,9 +61,11 @@ const Signup = () => {
         />
         <button>Sign up</button>
       </form>
-      <Link to={`/login`}>
-        <p> Already registered ? Sign-in here</p>
-      </Link>
+
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
+
+      <Link to={"/login"}> Already have an account ? Click here to login</Link>
+
     </div>
   );
 };

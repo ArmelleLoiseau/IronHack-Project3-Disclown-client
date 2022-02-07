@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
-import socket from "../../socket";
+import React, { useState } from "react";
+
 
 // Contexts
 import { UserContext } from "../../context/user.context";

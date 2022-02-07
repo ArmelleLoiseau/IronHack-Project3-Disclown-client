@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import React, { useState, useContext } from "react";
 import socket from "../../socket";
 
@@ -23,6 +24,7 @@ const CreateChan = () => {
   const handleClick = async (e) => {
     e.preventDefault;
     try {
+
       const newChan = await axios.post("http://localhost:4000/chan", chan);
       console.log("success");
       addChan(newChan.data);
