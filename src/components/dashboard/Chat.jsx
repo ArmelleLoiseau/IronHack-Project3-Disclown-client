@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import socket from "../../socket";
 
 const Chat = () => {
   const [message, setMessage] = useState("");
   const [sentMessages, setSentMessages] = useState([]);
 
   useEffect(() => {
-    socket.emit();
+    // socket.emit();
   }, []);
 
   const handleSubmit = (e) => {

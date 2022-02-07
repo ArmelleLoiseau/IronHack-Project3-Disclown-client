@@ -6,12 +6,10 @@ import { Route, Routes } from "react-router-dom";
 import Dashboard from "./components/dashboard/Dashboard";
 // import { AuthContext } from "./context/Auth.context";
 
-// const socket = io("http://localhost:4000", {
+// const socket = io("http://localhost:4001", {
 //   autoConnect: false,
 //   withCredentials: true,
 // });
-
-import socket from "./socket";
 
 function App() {
   // socket.emit("connection", () => {
@@ -19,9 +17,9 @@ function App() {
   // });
   // const { isLoggedIn, isLoading } = useContext(AuthContext);
 
-  socket.onAny((event, ...args) => {
-    console.log(event, args);
-  });
+  // socket.onAny((event, ...args) => {
+  //   console.log(event, args);
+  // });
 
   return (
     <div className="App">

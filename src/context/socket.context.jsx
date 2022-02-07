@@ -1,18 +1,39 @@
 import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
-import socket from "../socket";
+import useAuth from "./useAuth";
+// import socket from "../socket";
 
 const SocketContext = React.createContext();
 
 function SocketProviderWrapper(props) {
+  const { currentUser, isLoggedIn } = useAuth();
+  const [socket, setSocket] = useState(null);
+
+  useEffect(() => {
+    if (!isLoggedIn) return;
+    console.log("connection au socket");
+    const newSocket = io("http://localhost:4001", {
+      // autoConnect: false,
+      withCredentials: true,
+    });
+
+    setSocket((oldState) => newSocket);
+    console.log("state socket", socket);
+
+    newSocket.on("connected", () => {
+      console.log("succesfully connected with socket.io server");
+    });
+  }, [isLoggedIn]);
+
   const ConnectWithSocket = (user, userToken) => {
+    if (!socket) return;
     const jwtToken = userToken;
     socket.auth = {
       email: user?.email,
       token: jwtToken,
     };
 
-    socket.on("connection", () => {
+    socket.on("connected", () => {
       console.log("succesfully connected with socket.io server");
       console.log(socket);
     });

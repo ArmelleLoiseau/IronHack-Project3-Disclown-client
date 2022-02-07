@@ -23,7 +23,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:4000/signup", user);
+      await axios.post("http://localhost:4001/signup", user);
       navigate("/login");
     } catch (e) {
       console.error(e);

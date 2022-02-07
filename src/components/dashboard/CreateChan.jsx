@@ -1,8 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
-import socket from "../../socket";
 
-const CreateChan = ({addChan}) => {
+const CreateChan = ({ addChan }) => {
   const [chan, setChan] = useState({
     name: "",
     // A faire : rajouter l'id du owner (socket.userEmail),
@@ -11,14 +10,13 @@ const CreateChan = ({addChan}) => {
   const handleClick = async (e) => {
     e.preventDefault;
     try {
-     const newChan = await axios.post("http://localhost:4000/chan", chan);
+      const newChan = await axios.post("http://localhost:4001/chan", chan);
       console.log("success");
-      addChan(newChan.data)
+      addChan(newChan.data);
     } catch (error) {
       console.error(error);
     }
   };
-
 
   return (
     <div>

@@ -8,11 +8,11 @@ import { SocketProviderWrapper } from "./context/socket.context";
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <SocketProviderWrapper>
-        <AuthProviderWrapper>
+      <AuthProviderWrapper>
+        <SocketProviderWrapper>
           <App />
-        </AuthProviderWrapper>
-      </SocketProviderWrapper>
+        </SocketProviderWrapper>
+      </AuthProviderWrapper>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")

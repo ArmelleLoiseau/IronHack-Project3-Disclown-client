@@ -1,6 +1,4 @@
 import React, { useContext, useState, useEffect } from "react";
-import socket from "../../socket";
-import ConnectWithSocket from "../../socketConnection/ConnectWithSocket";
 import useAuth from "../../context/useAuth";
 // import components
 import UsersList from "./UsersList";

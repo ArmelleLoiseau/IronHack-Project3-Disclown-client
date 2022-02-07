@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import socket from "../../socket";
 
 const UsersList = ({ users }) => {
   const [usersConnected, setUsersConnected] = useState([]);
