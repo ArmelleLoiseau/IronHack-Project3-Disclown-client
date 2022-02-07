@@ -1,6 +1,8 @@
 import axios from "axios";
-import React, { useState } from "react";
-// import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+import { AuthContext } from "./../../context/auth.context";
 
 const Signup = () => {
   const [user, setUser] = useState({
@@ -8,14 +10,21 @@ const Signup = () => {
     email: "",
     password: "",
   });
-  //   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState(undefined);
+  const { authenticateUser, isLoggedIn } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    authenticateUser();
+    if (isLoggedIn) navigate("/dashboard");
+  }, [isLoggedIn]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await axios.post("http://localhost:4000/signup", user);
-      console.log("OK");
-      //   navigate("/login");
+      navigate("/login");
     } catch (e) {
       console.error(e);
     }
@@ -47,6 +56,10 @@ const Signup = () => {
         />
         <button>Sign up</button>
       </form>
+
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
+
+      <Link to={"/login"}> Already have an account ? Click here to login</Link>
     </div>
   );
 };
