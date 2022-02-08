@@ -16,21 +16,21 @@ function SocketProviderWrapper(props) {
   useEffect(() => {
     if (!isLoggedIn) return;
     console.log("connection au socket");
-    const socket = io("http://localhost:4001", {
+    const socket = io(import.meta.env.VITE_APP_BACKEND_URL, {
       // autoConnect: false,
       withCredentials: true,
     });
 
     socket.on("connected", () => {
       console.log("CurrentUser loooooooooooooooog", currentUser);
-      console.log("socekt", socket);
+      console.log("socket", socket);
       console.log("succesfully connected with socket.io server");
     });
 
     //  ConnectWithSocket
     socket.auth = {
-      email: currentUser?.data.email,
-      id: currentUser?.data._id,
+      email: currentUser?.email,
+      id: currentUser?._id,
       token: token,
     };
 
