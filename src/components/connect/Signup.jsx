@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { AuthContext } from "./../../context/auth.context";
 
-
 const Signup = () => {
   // get user from Auth Context
   const [user, setUser] = useState({
@@ -22,17 +21,12 @@ const Signup = () => {
     if (isLoggedIn) navigate("/dashboard");
   }, [isLoggedIn]);
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-<<<<<<< HEAD
       // send the sign-up info to DB to create new user
       const newUser = await axios.post("http://localhost:4001/signup", user);
       console.log("SIGN-UP -- new user is :", newUser.data.user);
-=======
-      await axios.post("http://localhost:4001/signup", user);
->>>>>>> df55132499c36f13e4a9a2212124a96617ce6452
 
       navigate("/login");
     } catch (e) {
@@ -71,7 +65,6 @@ const Signup = () => {
       {errorMessage && <p className="error-message">{errorMessage}</p>}
 
       <Link to={"/login"}> Already have an account ? Click here to login</Link>
-
     </div>
   );
 };
