@@ -29,7 +29,15 @@ const Login = () => {
     e.preventDefault();
 
     try {
+<<<<<<< HEAD
+      // send login info to DB to log the user in
+      const loggedInUser = await axios.post(
+        "http://localhost:4001/login",
+        user
+      );
+=======
       const dbResponse = await axios.post("http://localhost:4001/login", user);
+>>>>>>> df55132499c36f13e4a9a2212124a96617ce6452
 
       // set socket.auth to user.email and connect to socket
       // let email = user.email;

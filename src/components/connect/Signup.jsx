@@ -26,7 +26,13 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+<<<<<<< HEAD
+      // send the sign-up info to DB to create new user
+      const newUser = await axios.post("http://localhost:4001/signup", user);
+      console.log("SIGN-UP -- new user is :", newUser.data.user);
+=======
       await axios.post("http://localhost:4001/signup", user);
+>>>>>>> df55132499c36f13e4a9a2212124a96617ce6452
 
       navigate("/login");
     } catch (e) {
