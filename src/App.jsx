@@ -6,6 +6,8 @@ import { Route, Routes } from "react-router-dom";
 import Dashboard from "./components/dashboard/Dashboard";
 // import { AuthContext } from "./context/Auth.context";
 
+//Je suis la o////
+
 // const socket = io("http://localhost:4001", {
 //   autoConnect: false,
 //   withCredentials: true,
