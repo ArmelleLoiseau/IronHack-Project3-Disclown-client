@@ -1,7 +1,6 @@
 import axios from "axios";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
 import { AuthContext } from "./../../context/auth.context";
 
 const Signup = () => {
@@ -11,8 +10,11 @@ const Signup = () => {
     email: "",
     password: "",
   });
+  const [avatar, setAvatar] = useState();
   const [errorMessage, setErrorMessage] = useState(undefined);
   const { authenticateUser, isLoggedIn } = useContext(AuthContext);
+
+  const avatarRef = useRef(null);
 
   const navigate = useNavigate();
 
@@ -21,13 +23,23 @@ const Signup = () => {
     if (isLoggedIn) navigate("/dashboard");
   }, [isLoggedIn]);
 
+  const handleAvatar = (input) => {
+    axios
+      .get(`https://avatars.dicebear.com/api/bottts/${input}.svg`)
+      .then(({ data }) => {
+        // console.log(data);
+        avatarRef.current = data;
+      })
+      .catch((err) => console.log(err));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await axios.post(import.meta.env.VITE_APP_BACKEND_URL + "/signup", user);
-
       navigate("/login");
-    } catch (e) {
+    } catch (err) {
+      setErrorMessage((prevValue) => err.response.data.message);
       console.error(e);
     }
   };
@@ -41,7 +53,10 @@ const Signup = () => {
           type="text"
           name="username"
           value={user.username}
-          onChange={(e) => setUser({ ...user, username: e.target.value })}
+          onChange={(e) => {
+            setUser({ ...user, username: e.target.value });
+            handleAvatar(e.target.value);
+          }}
         />
         <label htmlFor="email">email</label>
         <input
@@ -57,6 +72,10 @@ const Signup = () => {
           value={user.password}
           onChange={(e) => setUser({ ...user, password: e.target.value })}
         />
+        <div>
+          <p>This will be your profile pic</p>
+          {avatarRef.current}
+        </div>
         <button>Sign up</button>
       </form>
 

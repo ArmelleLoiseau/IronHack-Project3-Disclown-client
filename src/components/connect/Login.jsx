@@ -49,7 +49,7 @@ const Login = () => {
 
       navigate("/dashboard");
     } catch (err) {
-      const errorDescription = error.response.data.message;
+      const errorDescription = err.response.data.message;
       setErrorMessage(errorDescription);
     }
   };

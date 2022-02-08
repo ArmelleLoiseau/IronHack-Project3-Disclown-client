@@ -27,10 +27,7 @@ const CreateChan = () => {
         import.meta.env.VITE_APP_BACKEND_URL + "/chan",
         chan
       );
-      console.log("success");
       addChan(newChan.data);
-      console.log("db response", newChan.data);
-      console.log("updated chans", chans);
     } catch (error) {
       console.error(error);
     }

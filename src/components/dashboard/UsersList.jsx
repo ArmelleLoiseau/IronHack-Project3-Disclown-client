@@ -8,8 +8,8 @@ const UsersList = () => {
   // const [usersConnected, setUsersConnected] = useState([]);
 
   const { connectedUsers } = useContext(SocketContext);
-  console.log("Connected Users", connectedUsers);
 
+  console.log("Component{UsersList} => connectedUsers", connectedUsers);
   // if (!connectedUsers) return <p>loading...</p>;
   return (
     <div>
