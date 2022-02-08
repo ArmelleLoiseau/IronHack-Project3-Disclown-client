@@ -1,68 +1,87 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import io from "socket.io-client";
 import useAuth from "./useAuth";
-// import socket from "../socket";
 
 const SocketContext = React.createContext();
 
 function SocketProviderWrapper(props) {
   const { currentUser, isLoggedIn } = useAuth();
-  const [socket, setSocket] = useState(null);
 
+  const [connectedUsers, setConnectedUsers] = useState([]);
+
+  const token = localStorage.getItem("authToken");
+  // const [socket, setSocket] = useState(io("http://localhost:4001"));
+  const clientSocket = useRef();
   useEffect(() => {
     if (!isLoggedIn) return;
     console.log("connection au socket");
-    const newSocket = io("http://localhost:4001", {
+    const socket = io("http://localhost:4001", {
       // autoConnect: false,
       withCredentials: true,
     });
 
-    setSocket((oldState) => newSocket);
-    console.log("state socket", socket);
-
-    newSocket.on("connected", () => {
+    socket.on("connected", () => {
+      console.log("CurrentUser loooooooooooooooog", currentUser);
+      console.log("socekt", socket);
       console.log("succesfully connected with socket.io server");
     });
-  }, [isLoggedIn]);
 
-  const ConnectWithSocket = (user, userToken) => {
-    if (!socket) return;
-    const jwtToken = userToken;
+    //  ConnectWithSocket
     socket.auth = {
-      email: user?.email,
-      token: jwtToken,
+      email: currentUser?.data.email,
+      id: currentUser?.data._id,
+      token: token,
     };
 
-    socket.on("connected", () => {
-      console.log("succesfully connected with socket.io server");
-      console.log(socket);
+    socket.on("user connected", (user) => {
+      console.log("connected user", user);
     });
 
     socket.on("users", (users) => {
-      users.forEach((user) => {
-        user.self = user.userID === socket.id;
-        // initReactiveProperties(user);
+      users.map((user) => {
+        user.self = user._id === socket.auth.id;
       });
 
-      users = users.sort((a, b) => {
-        if (a.self) return -1;
-        if (b.self) return 1;
-        if (a.email < b.email) return -1;
-        return a.email > b.email ? 1 : 0;
-      });
-
-      socket.on("user connected", (user) => {
-        // initReactiveProperties(user);
-        users.push(user);
-      });
-
-      setUsers(users);
-      console.log("--->", users);
+      setConnectedUsers((prevValue) => users);
+      console.log("Users", users);
+      //   users.forEach((user) => {
+      //   user.self = user.userID === socket.auth.id;
     });
+
+    // socket.on("users", (users) => {
+    //   // setConnectedUsers(users);
+    //   console.log("log users", users);
+    //   // initReactiveProperties(user);
+    // });
+
+    //   users = users.sort((a, b) => {
+    //     if (a.self) return -1;
+    //     if (b.self) return 1;
+    //     if (a.email < b.email) return -1;
+    //     return a.email > b.email ? 1 : 0;
+    //   });
+
+    // socket.on("user connected", (user) => {
+    // initReactiveProperties(user);
+    // setConnectedUsers([...connectedUsers, user]);
+    // console.log("Connected users", connectedUsers);
+    // });
+
+    // setUsers(users);
+    // console.log("--->", users);
+
+    // }();
+    clientSocket.current = socket;
+    // clean up the effect
+  }, [isLoggedIn]);
+
+  const socketValues = {
+    socket: clientSocket.current,
+    connectedUsers: connectedUsers,
   };
 
   return (
-    <SocketContext.Provider value={ConnectWithSocket}>
+    <SocketContext.Provider value={socketValues}>
       {props.children}
     </SocketContext.Provider>
   );
