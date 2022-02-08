@@ -16,11 +16,11 @@ const UsersList = () => {
       <p> users list</p>
       {connectedUsers.map((user) => {
         return user.self ? (
-          <div key={user.userID}>
+          <div key={user._id}>
             <p>{user.username}(yourself)</p>
           </div>
         ) : (
-          <div key={user.userID}>
+          <div key={user._id}>
             <p>{user.username}</p>
           </div>
         );

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import apiHandler from "../api/apiHandler";
 import axios from "axios";
 
 const API_URL = "http://localhost:4001";

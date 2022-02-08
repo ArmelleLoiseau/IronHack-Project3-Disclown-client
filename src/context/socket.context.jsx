@@ -8,6 +8,7 @@ function SocketProviderWrapper(props) {
   const { currentUser, isLoggedIn } = useAuth();
 
   const [connectedUsers, setConnectedUsers] = useState([]);
+  const [newUser, setNewUser] = useState(null);
 
   const token = localStorage.getItem("authToken");
   // const [socket, setSocket] = useState(io("http://localhost:4001"));
@@ -35,6 +36,7 @@ function SocketProviderWrapper(props) {
 
     socket.on("user connected", (user) => {
       console.log("connected user", user);
+      setNewUser(user);
     });
 
     socket.on("users", (users) => {
@@ -72,6 +74,12 @@ function SocketProviderWrapper(props) {
 
     // }();
     clientSocket.current = socket;
+
+    return () => {
+      socket.disconnect();
+      clientSocket.current = null;
+    };
+
     // clean up the effect
   }, [isLoggedIn]);
 
