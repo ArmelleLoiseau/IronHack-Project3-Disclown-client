@@ -10,7 +10,7 @@ const ChanList = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4001/chan")
+      .get(import.meta.env.VITE_APP_BACKEND_URL + "/chan")
       .then((dbResponse) => setChans(dbResponse.data))
       .catch((e) => console.error(e));
   }, []);

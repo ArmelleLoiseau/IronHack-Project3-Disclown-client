@@ -24,7 +24,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:4001/signup", user);
+      await axios.post(import.meta.env.VITE_APP_BACKEND_URL + "/signup", user);
 
       navigate("/login");
     } catch (e) {

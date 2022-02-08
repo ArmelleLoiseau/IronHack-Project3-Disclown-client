@@ -28,7 +28,10 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const dbResponse = await axios.post("http://localhost:4001/login", user);
+      const dbResponse = await axios.post(
+        import.meta.env.VITE_APP_BACKEND_URL + "/login",
+        user
+      );
 
       // set socket.auth to user.email and connect to socket
       // let email = user.email;

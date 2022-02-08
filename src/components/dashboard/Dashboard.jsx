@@ -6,6 +6,7 @@ import UsersList from "./UsersList";
 import Chat from "./Chat";
 import CreateChan from "./CreateChan";
 import ChanList from "./ChanList";
+import Profil from "./Profil";
 
 // import contexts
 import { SocketContext } from "../../context/socket.context";
@@ -25,7 +26,6 @@ const Dashboard = () => {
       //log out and redirect to "/"
     } else {
       authenticateUser();
-      // connectWithSocket(currentUser, userToken);
     }
   }, []);
 
@@ -66,7 +66,7 @@ const Dashboard = () => {
       <UsersList users={users} />
       <CreateChan addChan={addChan} />
       <ChanList setChans={setChans} chans={chans} />
-
+      <Profil />
       <Chat />
       {/* {isLoggedIn && (
         <>

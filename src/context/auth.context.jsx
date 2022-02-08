@@ -38,6 +38,7 @@ function AuthProviderWrapper({ children }) {
   const removeToken = () => {
     localStorage.removeItem("authToken");
   };
+
   const storeToken = (token) => {
     localStorage.setItem("authToken", token);
   };
@@ -48,6 +49,8 @@ function AuthProviderWrapper({ children }) {
     isLoggedIn: auth.isLoggedIn,
     storeToken,
     authenticateUser,
+    removeUser,
+    removeToken,
   };
 
   return (
