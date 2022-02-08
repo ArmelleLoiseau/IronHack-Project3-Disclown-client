@@ -25,7 +25,7 @@ const Dashboard = () => {
       //log out and redirect to "/"
     } else {
       authenticateUser();
-      connectWithSocket(currentUser, userToken);
+      // connectWithSocket(currentUser, userToken);
     }
   }, []);
 
@@ -53,7 +53,6 @@ const Dashboard = () => {
   //     // initReactiveProperties(user);
   //     users.push(user);
   //   });
-
 
   //   setUsers(users);
   //   console.log("--->", users);

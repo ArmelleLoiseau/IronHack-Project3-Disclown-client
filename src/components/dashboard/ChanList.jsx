@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-
 // contexts
 import { ChanContext } from "../../context/chan.context";
 
@@ -17,7 +16,6 @@ const ChanList = () => {
   }, []);
 
   if (!chans) return <p>loading...</p>;
-  else console.log("chans", chans);
 
   return (
     <div>

@@ -1,26 +1,27 @@
-import React, { useState } from "react";
-
+import React, { useState, useContext } from "react";
 
 // Contexts
-import { UserContext } from "../../context/user.context";
+// import { UserContext } from "../../context/user.context";
+import { SocketContext } from "../../context/socket.context";
 
 const UsersList = () => {
-  const [usersConnected, setUsersConnected] = useState([]);
-  const { users } = useContext(UserContext);
+  // const [usersConnected, setUsersConnected] = useState([]);
 
-  if (!usersConnected) return <p>loading...</p>;
-  console.log(users);
+  const { connectedUsers } = useContext(SocketContext);
+  console.log("Connected Users", connectedUsers);
+
+  // if (!connectedUsers) return <p>loading...</p>;
   return (
     <div>
       <p> users list</p>
-      {users.map((user) => {
+      {connectedUsers.map((user) => {
         return user.self ? (
-          <div key={user.userID}>
-            <p>{user.userEmail}(yourself)</p>
+          <div key={user._id}>
+            <p>{user.username}(yourself)</p>
           </div>
         ) : (
-          <div key={user.userID}>
-            <p>{user.userEmail}</p>
+          <div key={user._id}>
+            <p>{user.username}</p>
           </div>
         );
       })}

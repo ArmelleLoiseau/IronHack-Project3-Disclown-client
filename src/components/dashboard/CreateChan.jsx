@@ -1,7 +1,6 @@
 import axios from "axios";
 
 import React, { useState, useContext } from "react";
-import socket from "../../socket";
 
 // contexts
 import { ChanContext } from "../../context/chan.context";
