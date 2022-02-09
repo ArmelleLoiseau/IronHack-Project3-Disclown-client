@@ -76,9 +76,11 @@ const Dashboard = () => {
         <div className="chanList">
           <ChanList setChans={setChans} chans={chans} />
         </div>
+
         <div className="chat">
           <Chat />
         </div>
+        <Profil />
       </div>
       {/* {isLoggedIn && (
         <>
