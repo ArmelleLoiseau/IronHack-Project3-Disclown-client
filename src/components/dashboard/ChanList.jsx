@@ -5,9 +5,11 @@ import "./dashboard-css/chanList.css";
 
 // contexts
 import { ChanContext } from "../../context/chan.context";
+// import SearchChan from "./SearchChan";
 
 const ChanList = () => {
   const { chans, setChans } = useContext(ChanContext);
+  // const { searChan, setSearChan } = useContext(ChanContext);
 
   useEffect(() => {
     axios
@@ -16,19 +18,22 @@ const ChanList = () => {
       .catch((e) => console.error(e));
   }, []);
 
+  // let search = null;
+  // if (searChan !== "") {
+  //   sear = chans.filter((chan) => {
+  //     return chan.name.tolowerCase().includes(searChan.tolowerCase());
+  //   });
+  // } else {
+  //   search = chans;
+  // }
+
   if (!chans) return <p>loading...</p>;
   return (
     <>
       <div className="chanList-content">
         <div className="chanList-header">
           <h2>Chan List global</h2>
-          <div className="searchChan">
-            {/* <input
-              type="text"
-              placeholder="Looking for a spécific chan"
-              onChange={e}
-            /> */}
-          </div>
+          <div className="searchChan">{/* <SearchChan /> */}</div>
         </div>
         {chans.map((chan) => {
           return (

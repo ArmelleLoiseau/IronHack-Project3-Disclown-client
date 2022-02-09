@@ -22,6 +22,8 @@ const CreateChan = () => {
     owner: owner,
   });
 
+  const [addedChan, setAddedChan] = useState(false);
+
   const handleClick = async (e) => {
     e.preventDefault;
     try {
@@ -29,7 +31,9 @@ const CreateChan = () => {
         import.meta.env.VITE_APP_BACKEND_URL + "/chan",
         chan
       );
+      setAddedChan(true);
       addChan(newChan.data);
+      setAddedChan(false);
     } catch (error) {
       console.error(error);
     }
@@ -40,7 +44,7 @@ const CreateChan = () => {
       .get(import.meta.env.VITE_APP_BACKEND_URL + "/chan", chans)
       .then((dbResponse) => setChans(dbResponse.data))
       .catch((e) => console.error(e));
-  }, []);
+  }, [addedChan]);
 
   const filterChan = chans.filter(function (chan) {
     return chan.owner._id === owner;
