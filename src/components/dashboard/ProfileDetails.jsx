@@ -128,14 +128,18 @@ const ProfileDetails = () => {
   return (
     <div>
       {deleteMode && (
-        <div style={{ width: "100vw", height: "100vw", color: "red" }}>
+        <div className="delete-mode container">
           <p>Are you sure ? This means goodbye... forever</p>
-          <button onClick={cancelDelete}>Nope nope nopity nope</button>
-          <button onClick={deleteAccount}>Delete for good</button>
+          <button className="profil-btn" onClick={cancelDelete}>
+            Nope nope nopity nope
+          </button>
+          <button className="profil-btn" onClick={deleteAccount}>
+            Delete for good
+          </button>
         </div>
       )}
       {isEditing && (
-        <form>
+        <form className="edit-mode container">
           <label htmlFor="username">Username</label>
           <input
             type="text"
@@ -156,22 +160,37 @@ const ProfileDetails = () => {
           />
           <label htmlFor="avatar">avatar</label>
           <input type="file" name="avatar" id="avatar" ref={avatarRef} />
-          <button onClick={SendForm}>Send</button>
-          <button onClick={cancelEdit}> Nevermind, this is fine</button>
-          <button onClick={confirmDelete}>Delete my account</button>
+          <button className="profil-btn" onClick={SendForm}>
+            Send
+          </button>
+          <button className="profil-btn" onClick={cancelEdit}>
+            {" "}
+            Nevermind, this is fine
+          </button>
+          <button className="profil-btn" onClick={confirmDelete}>
+            Delete my account
+          </button>
         </form>
       )}
       {!isEditing && (
-        <div>
-          <p>{userToUpdate?.username}</p>
-          <p>{userToUpdate?.email}</p>
-          <img src={userToUpdate?.avatar} alt={userToUpdate?.username} />
-          <i className="fas fa-user-edit" onClick={handleEditMode}></i>
-
-          <i
-            onClick={handleDisconnect}
-            className="fa-solid fa-right-from-bracket"
-          ></i>
+        <div className="display-mode container">
+          <p className="display-mode username">{userToUpdate?.username}</p>
+          <p className="display-mode email">{userToUpdate?.email}</p>
+          <img
+            className="display-mode avatar"
+            src={userToUpdate?.avatar}
+            alt={userToUpdate?.username}
+          />
+          <div className="display-mode icons-container">
+            <i
+              className="fas fa-user-edit display-mode icon"
+              onClick={handleEditMode}
+            ></i>
+            <i
+              onClick={handleDisconnect}
+              className="fa-solid fa-right-from-bracket display-mode icon"
+            ></i>
+          </div>
         </div>
       )}
     </div>

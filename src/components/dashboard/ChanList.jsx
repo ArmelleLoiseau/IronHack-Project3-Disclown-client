@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 import "./dashboard-css/chanList.css";
 
 // contexts
+// delete chanContext
 import { ChanContext } from "../../context/chan.context";
+import { SocketContext } from "../../context/socket.context";
 // import SearchChan from "./SearchChan";
 
 const ChanList = () => {

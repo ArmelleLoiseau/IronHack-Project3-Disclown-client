@@ -6,7 +6,6 @@ import useAuth from "../../context/useAuth";
 import "./dashboard-css/dashboard.css";
 
 import UsersList from "./UsersList";
-import Chat from "./Chat";
 import CreateChan from "./CreateChan";
 import ChanList from "./ChanList";
 import Profil from "./Profil";
@@ -77,9 +76,7 @@ const Dashboard = () => {
           <ChanList setChans={setChans} chans={chans} />
         </div>
 
-        <div className="chat">
-          <Chat />
-        </div>
+        <div className="chat"></div>
         <Profil />
       </div>
       {/* {isLoggedIn && (
