@@ -15,14 +15,13 @@ function SocketProviderWrapper(props) {
   const clientSocket = useRef();
   useEffect(() => {
     if (!isLoggedIn) return;
-    console.log("connection au socket");
     const socket = io(import.meta.env.VITE_APP_BACKEND_URL, {
       // autoConnect: false,
       withCredentials: true,
     });
 
     socket.on("connected", () => {
-      console.log("CurrentUser loooooooooooooooog", currentUser);
+      console.log("CurrentUser", currentUser);
       console.log("socket", socket);
       console.log("succesfully connected with socket.io server");
     });
@@ -44,10 +43,14 @@ function SocketProviderWrapper(props) {
         user.self = user._id === socket.auth.id;
       });
 
+      users = users.sort((a, b) => {
+        if (a.self) return -1;
+        if (b.self) return 1;
+        if (a.email < b.email) return -1;
+        return a.email > b.email ? 1 : 0;
+      });
+
       setConnectedUsers((prevValue) => users);
-      console.log("Users", users);
-      //   users.forEach((user) => {
-      //   user.self = user.userID === socket.auth.id;
     });
 
     // socket.on("users", (users) => {
@@ -73,6 +76,15 @@ function SocketProviderWrapper(props) {
     // console.log("--->", users);
 
     // }();
+
+    socket.on("disconnect", () => {
+      console.log("user just disconnected");
+      // socket.emit("disconnected", socket.auth.id);
+    });
+
+    socket.on("user disconnected", () => {
+      console.log("disconnected user is", socket.id);
+    });
     clientSocket.current = socket;
 
     return () => {
