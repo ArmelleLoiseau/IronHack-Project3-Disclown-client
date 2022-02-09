@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
-import axios from "axios";
+import apiHandler from "../../api/apiHandler";
 import { Link, useNavigate } from "react-router-dom";
-import { io } from "socket.io-client";
 import "./form.css";
 
 import { AuthContext } from "./../../context/auth.context";
@@ -29,10 +28,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const dbResponse = await axios.post(
-        import.meta.env.VITE_APP_BACKEND_URL + "/login",
-        user
-      );
+      const dbResponse = await apiHandler.post("/login", user);
 
       // set socket.auth to user.email and connect to socket
       // let email = user.email;

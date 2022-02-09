@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect, useContext } from "react";
 import apiHandler from "./../../api/apiHandler";
 import useAuth from "../../context/useAuth";
 import { SocketContext } from "../../context/socket.context";
+import "./dashboard-css/Profil.css";
 
 const ProfileDetails = () => {
   // get info from auth context
@@ -9,7 +10,7 @@ const ProfileDetails = () => {
     useAuth();
 
   // get info from socket context
-  const { socket, setUserUpdated } = useContext(SocketContext);
+  const { socket, setUserUpdated, userUpdated } = useContext(SocketContext);
 
   // use State to handle form input
   const [userToUpdate, setUserToUpdate] = useState({
@@ -56,17 +57,16 @@ const ProfileDetails = () => {
     fd.append("username", userToUpdate.username);
     fd.append("email", userToUpdate.email);
     fd.append("avatar", avatarRef.current.files[0]);
-
+    console.log("the current avatar ref is :", avatarRef.current.files[0]);
     try {
-      console.log(userToUpdate._id);
       const dbResponse = await apiHandler.patch(
         `/user/${userToUpdate._id}`,
-        fd
-      );
-
-      console.log(
-        "===> response from back : updated user",
-        dbResponse.data.authToken
+        fd,
+        {
+          headers: {
+            "content-type": "multipart/form-data",
+          },
+        }
       );
       // store new token
       storeToken(dbResponse.data.authToken);
@@ -84,6 +84,7 @@ const ProfileDetails = () => {
       setUserUpdated(false);
     } catch (error) {
       console.error(error);
+      // **** TO DO : error message "smg went wrong, please try again"
     }
   };
 
