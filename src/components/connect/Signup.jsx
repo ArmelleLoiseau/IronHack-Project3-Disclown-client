@@ -12,6 +12,7 @@ const Signup = () => {
     email: "",
     password: "",
   });
+
   const [avatar, setAvatar] = useState();
   const [errorMessage, setErrorMessage] = useState(undefined);
   const { authenticateUser, isLoggedIn } = useContext(AuthContext);
@@ -88,7 +89,11 @@ const Signup = () => {
         />
         <div>
           <p>This will be your profile pic</p>
-          {avatarRef.current}
+          {/* {avatarRef.current} */}
+          <img
+            src={`https://avatars.dicebear.com/api/bottts/${user.username}.svg`}
+            alt=""
+          />
         </div>
         <button>Sign up</button>
       </form>

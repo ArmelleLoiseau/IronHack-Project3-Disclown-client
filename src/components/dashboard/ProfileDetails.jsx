@@ -4,20 +4,29 @@ import useAuth from "../../context/useAuth";
 import { SocketContext } from "../../context/socket.context";
 
 const ProfileDetails = () => {
+  // get info from auth context
   const { currentUser, isLoggedIn, removeUser, storeToken, authenticateUser } =
     useAuth();
-  const { socket } = useContext(SocketContext);
 
+  // get info from socket context
+  const { socket, setUserUpdated } = useContext(SocketContext);
+
+  // use State to handle form input
   const [userToUpdate, setUserToUpdate] = useState({
     _id: "",
     username: "",
     email: "",
     avatar: "",
   });
+
+  // set the editing or delete mode to display different views
   const [isEditing, setIsEditing] = useState(false);
   const [deleteMode, setDeleteMode] = useState(false);
+
+  // ****** catch the avatar input for form data (TO FIX) ******
   const avatarRef = useRef();
 
+  // on mount, check the currentUser and get his info from DB
   useEffect(() => {
     if (currentUser) {
       apiHandler
@@ -34,11 +43,13 @@ const ProfileDetails = () => {
     }
   }, [isLoggedIn]);
 
+  // switch to edit mode
   const handleEditMode = (e) => {
     e.preventDefault();
     setIsEditing(true);
   };
 
+  // send the edited form
   const SendForm = async (e) => {
     e.preventDefault();
     const fd = new FormData();
@@ -47,42 +58,58 @@ const ProfileDetails = () => {
     fd.append("avatar", avatarRef.current.files[0]);
 
     try {
-      // generate new token => storetoken et authenticateUser
-      // storeToken();
-      // authenticateUser();
       console.log(userToUpdate._id);
-      const updatedUser = await apiHandler.patch(
+      const dbResponse = await apiHandler.patch(
         `/user/${userToUpdate._id}`,
         fd
       );
-      setUserToUpdate((prevValue) => updatedUser.data);
-      console.log(userToUpdate);
+
+      console.log(
+        "===> response from back : updated user",
+        dbResponse.data.authToken
+      );
+      // store new token
+      storeToken(dbResponse.data.authToken);
+      authenticateUser();
+
+      // change the user info inputs
+      setUserToUpdate((prevValue) => dbResponse.data.payload);
+
+      // set the "user updated" to true to trigger the render of the users list
+      setUserUpdated(true);
+
+      // switch back to mode "not editing"
       setIsEditing(!isEditing);
+
+      setUserUpdated(false);
     } catch (error) {
       console.error(error);
     }
   };
 
+  // disconnect the user (cut socket connection and remove his token)
   const handleDisconnect = async (e) => {
     e.preventDefault();
     socket.disconnect();
     removeUser();
   };
 
+  // ask user to confirm delete/edit ops
   const confirmDelete = (e) => {
     e.preventDefault();
     setDeleteMode(true);
-  };
-  const cancelEdit = (e) => {
-    e.preventDefault();
-    setIsEditing(false);
   };
   const cancelDelete = (e) => {
     e.preventDefault();
     setDeleteMode(false);
     setIsEditing(true);
   };
+  const cancelEdit = (e) => {
+    e.preventDefault();
+    setIsEditing(false);
+  };
 
+  // delete user infos in db + cut socket connection and remove token
   const deleteAccount = async (e) => {
     e.preventDefault();
     try {
@@ -139,7 +166,11 @@ const ProfileDetails = () => {
           <p>{userToUpdate?.email}</p>
           <img src={userToUpdate?.avatar} alt={userToUpdate?.username} />
           <i className="fas fa-user-edit" onClick={handleEditMode}></i>
-          <button onClick={handleDisconnect}>log-out</button>
+
+          <i
+            onClick={handleDisconnect}
+            className="fa-solid fa-right-from-bracket"
+          ></i>
         </div>
       )}
     </div>

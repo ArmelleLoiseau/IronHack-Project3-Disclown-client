@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 
 // Contexts
 // import { UserContext } from "../../context/user.context";
@@ -7,7 +7,11 @@ import { SocketContext } from "../../context/socket.context";
 const UsersList = () => {
   // const [usersConnected, setUsersConnected] = useState([]);
 
-  const { connectedUsers } = useContext(SocketContext);
+  const { connectedUsers, userUpdated } = useContext(SocketContext);
+
+  useEffect(() => {
+    console.log("is user updated ?", userUpdated);
+  }, [connectedUsers, userUpdated]);
 
   console.log("Component{UsersList} => connectedUsers", connectedUsers);
   // if (!connectedUsers) return <p>loading...</p>;
