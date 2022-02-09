@@ -4,13 +4,11 @@ import { Link } from "react-router-dom";
 import "./dashboard-css/chanList.css";
 
 // contexts
-// delete chanContext
-import { ChanContext } from "../../context/chan.context";
 import { SocketContext } from "../../context/socket.context";
 // import SearchChan from "./SearchChan";
 
 const ChanList = () => {
-  const { chans, setChans } = useContext(ChanContext);
+  const { chans, setChans, setJoinChan, joinChan } = useContext(SocketContext);
   // const { searChan, setSearChan } = useContext(ChanContext);
 
   useEffect(() => {
@@ -18,7 +16,7 @@ const ChanList = () => {
       .get(import.meta.env.VITE_APP_BACKEND_URL + "/chan", chans)
       .then((dbResponse) => setChans(dbResponse.data))
       .catch((e) => console.error(e));
-  }, []);
+  }, [joinChan]);
 
   // let search = null;
   // if (searChan !== "") {
@@ -39,7 +37,13 @@ const ChanList = () => {
         </div>
         {chans.map((chan) => {
           return (
-            <Link to={`/chan/${chan._id}`} key={chan._id}>
+            <Link
+              onClick={() => {
+                setJoinChan((prevValue) => chan._id);
+              }}
+              to={`/chan/${chan._id}`}
+              key={chan._id}
+            >
               <div className="chanList-chan">
                 <img
                   className="chanList-image"

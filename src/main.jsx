@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
-import { ChanContextWrapper } from "./context/chan.context";
+// import { ChanContextWrapper } from "./context/chan.context";
 import { AuthProviderWrapper } from "./context/auth.context";
 import { SocketProviderWrapper } from "./context/socket.context";
 import {UserContextWrapper} from "./context/user.context"
@@ -13,11 +13,11 @@ ReactDOM.render(
     <BrowserRouter>
       <AuthProviderWrapper>
         <SocketProviderWrapper>
-          <ChanContextWrapper>
+          {/* <ChanContextWrapper> */}
           <UserContextWrapper>
           <App />
           </UserContextWrapper>
-          </ChanContextWrapper>
+          {/* </ChanContextWrapper> */}
         </SocketProviderWrapper>
       </AuthProviderWrapper>
     </BrowserRouter>

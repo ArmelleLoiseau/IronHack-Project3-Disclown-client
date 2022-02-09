@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import Dashboard from "./components/dashboard/Dashboard";
 import PrivateRoute from "./components/protectedRoutes/PrivateRoute";
 import NotFound from "./components/NotFound";
+import Channel from "./components/channels/Channel"
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/chan/:id" element={<Channel />}/>
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

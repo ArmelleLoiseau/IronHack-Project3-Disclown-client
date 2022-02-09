@@ -4,14 +4,16 @@ import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 // contexts
-import { ChanContext } from "../../context/chan.context";
-import { UserContext } from "../../context/user.context";
+// import { ChanContext } from "../../context/chan.context";
+// import { UserContext } from "../../context/user.context";
 import useAuth from "../../context/useAuth";
+import { SocketContext } from "../../context/socket.context";
 
 const CreateChan = () => {
   // Get all chans + function to create a new chan from context
-  const { chans, addChan, setChans } = useContext(ChanContext);
+  // const { chans, addChan, setChans } = useContext(ChanContext);
   const { currentUser } = useAuth();
+  const {setNewChan, chans, setChans, addChan}= useContext(SocketContext)
 
   const currentUserID = currentUser._id;
   console.log("who is the owner ?", currentUserID);
@@ -21,9 +23,6 @@ const CreateChan = () => {
     name: "",
     owner: currentUserID,
   });
-
-  // // get all chans
-  // const [chans, setChans] = useState([]);
 
   const [addedChan, setAddedChan] = useState(false);
 
@@ -37,6 +36,7 @@ const CreateChan = () => {
       setAddedChan(true);
       addChan(newChan.data);
       setAddedChan(false);
+      setNewChan(newChan.data)
     } catch (error) {
       console.error(error);
     }

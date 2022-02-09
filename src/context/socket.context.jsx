@@ -7,9 +7,24 @@ const SocketContext = React.createContext();
 function SocketProviderWrapper(props) {
   const { currentUser, isLoggedIn } = useAuth();
 
+  // users' states
   const [connectedUsers, setConnectedUsers] = useState([]);
   const [newUser, setNewUser] = useState(null);
   const [userUpdated, setUserUpdated] = useState(false);
+
+  // chans' states
+  const [newChan, setNewChan] = useState({});
+  const [chans, setChans] = useState([]);
+  const [joinChan, setJoinChan] = useState(null);
+
+  const addChan = (addedChan) => {
+    setChans([...chans, addedChan]);
+  };
+
+  //messages' states
+  const [prevMess, setPrevMess] = useState([]);
+  const [message, setMessage] = useState(null);
+  const [welcomeMess, setWelcomeMess]=useState("")
 
   const token = localStorage.getItem("authToken");
 
@@ -57,8 +72,26 @@ function SocketProviderWrapper(props) {
       setConnectedUsers((prevValue) => users);
     });
 
+    //handleChans
+    if (joinChan !== null) {
+      socket.emit("chan-join", joinChan);
+    }
+    //if (message !== null) 
+   // socket.emit("send-message", message);
+
+    // socket.on("receive-message", (data) => {
+    //   setPrevMess({ ...prevMess, data });
+    // });
+    
+
+    socket.on("user joined", (mess) => {
+      setWelcomeMess(mess);
+    });
+
     // **** TO DO : finish this logic ***
     socket.emit("user update", userUpdated);
+
+    
 
     socket.on("disconnect", () => {
       console.log("user just disconnected");
@@ -76,13 +109,22 @@ function SocketProviderWrapper(props) {
       socket.disconnect();
       clientSocket.current = null;
     };
-  }, [isLoggedIn]);
+  }, [isLoggedIn, joinChan, message]);
 
   const socketValues = {
     socket: clientSocket.current,
     connectedUsers: connectedUsers,
     userUpdated,
     setUserUpdated,
+    setNewChan,
+    chans,
+    setChans,
+    addChan,
+    joinChan,
+    setJoinChan,
+    prevMess,
+    message,
+    setMessage,
   };
 
   return (

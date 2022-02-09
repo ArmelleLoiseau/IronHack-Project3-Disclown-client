@@ -1,20 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import apiHandler from "../../api/apiHandler";
 import Chat from "./Chat";
-import Userslist from "./Userslist";
+import Userslist from "../dashboard/Userslist";
+import { SocketContext } from "../../context/socket.context";
 
-function Channel({ chanId }) {
+function Channel() {
   const [chan, setChan] = useState({});
+  const {socket, joinChan} = useContext(SocketContext)
 
   // **** TO DO **** changer axios par apiHandler
-  useEffect(() => {
-    socket.emit("room-join", chanId);
-    axios
-      .get("http://localhost:4000/chan" + chanId)
-      .then((dbResponse) => setChan(dbResponse.data))
-      .catch((e) => console.log(e));
-  }, []);
+  // useEffect(() => {
+  //   apiHandler
+  //     .get("/chan/" + joinChan)
+  //     .then((dbResponse) => (dbResponse.data))
+  //     .catch((e) => console.log(e));
+  // }, []);
 
   return (
     <div>
