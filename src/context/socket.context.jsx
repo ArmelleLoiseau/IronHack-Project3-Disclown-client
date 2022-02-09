@@ -9,7 +9,6 @@ function SocketProviderWrapper(props) {
 
   // users' states
   const [connectedUsers, setConnectedUsers] = useState([]);
-  const [newUser, setNewUser] = useState(null);
   const [userUpdated, setUserUpdated] = useState(false);
 
   // chans' states
@@ -23,8 +22,7 @@ function SocketProviderWrapper(props) {
 
   //messages' states
   const [prevMess, setPrevMess] = useState([]);
-  const [message, setMessage] = useState(null);
-  const [welcomeMess, setWelcomeMess]=useState("")
+  const [welcomeMess, setWelcomeMess] = useState("");
 
   const token = localStorage.getItem("authToken");
 
@@ -50,10 +48,8 @@ function SocketProviderWrapper(props) {
     };
 
     // **** TO DO : finish this logic ***
-    socket.on("user connected", (user) => {
-      console.log("connected user", user);
-      setNewUser(user);
-    });
+    // socket.on("user connected", {newUser}
+    // });
 
     // get all users from the back and ad "self"key to current user
     socket.on("users", (users) => {
@@ -76,13 +72,12 @@ function SocketProviderWrapper(props) {
     if (joinChan !== null) {
       socket.emit("chan-join", joinChan);
     }
-    //if (message !== null) 
-   // socket.emit("send-message", message);
+    //if (message !== null)
+    // socket.emit("send-message", message);
 
     // socket.on("receive-message", (data) => {
     //   setPrevMess({ ...prevMess, data });
     // });
-    
 
     socket.on("user joined", (mess) => {
       setWelcomeMess(mess);
@@ -90,8 +85,6 @@ function SocketProviderWrapper(props) {
 
     // **** TO DO : finish this logic ***
     socket.emit("user update", userUpdated);
-
-    
 
     socket.on("disconnect", () => {
       console.log("user just disconnected");
@@ -109,7 +102,7 @@ function SocketProviderWrapper(props) {
       socket.disconnect();
       clientSocket.current = null;
     };
-  }, [isLoggedIn, joinChan, message]);
+  }, [isLoggedIn, joinChan]);
 
   const socketValues = {
     socket: clientSocket.current,
@@ -123,8 +116,6 @@ function SocketProviderWrapper(props) {
     joinChan,
     setJoinChan,
     prevMess,
-    message,
-    setMessage,
   };
 
   return (

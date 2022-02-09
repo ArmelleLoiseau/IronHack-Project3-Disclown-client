@@ -1,36 +1,33 @@
 import React, { useState, useEffect, useContext } from "react";
-
-// A CHANGER
-import io from "socket.io-client";
 import apiHandler from "../../api/apiHandler";
 import { SocketContext } from "../../context/socket.context";
 import useAuth from "../../context/useAuth";
 
-// const socket = io.connect("http://localhost:3000");
-
 const Chat = () => {
   const [currentMessage, setCurrentMessage] = useState("");
   const [sentMessages, setSentMessages] = useState([]);
-  const { prevMess, message, setMessage, joinChan, socket, welcomeMess } =
-    useContext(SocketContext);
+  const { joinChan, socket, welcomeMess } = useContext(SocketContext);
   const { currentUser } = useAuth();
-  const [refresh, setRefresh] = useState(false)
+  const [refresh, setRefresh] = useState(false);
 
   const getMessages = () => {
+    console.log(joinChan);
     apiHandler
       .get(`/chan/${joinChan}/messages`)
-      .then((dbResponse) => setSentMessages(dbResponse.data))
-      .catch((e) => console.error(e))
+      .then((dbResponse) => {
+        setSentMessages(dbResponse.data);
+      })
+      .catch((e) => console.error(e));
   };
 
   useEffect(() => {
+    getMessages();
     // socket.emit("chan-join", joinChan);
     socket.on("receive-message", () => {
       getMessages();
-      setRefresh(!refresh)
-    })
+      setRefresh(!refresh);
+    });
   }, [refresh]);
-
 
   const send = (e) => {
     e.preventDefault();
@@ -41,11 +38,6 @@ const Chat = () => {
         chan: joinChan,
       });
       setCurrentMessage("");
-      // setMessage({
-      //   content: currentMessage,
-      //   author: currentUser._id,
-      //   chan: joinChan,
-      //  socket.emit("send-message", message);
     }
   };
 

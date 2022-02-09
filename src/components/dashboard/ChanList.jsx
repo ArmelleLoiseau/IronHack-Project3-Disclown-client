@@ -16,7 +16,7 @@ const ChanList = () => {
       .get(import.meta.env.VITE_APP_BACKEND_URL + "/chan", chans)
       .then((dbResponse) => setChans(dbResponse.data))
       .catch((e) => console.error(e));
-  }, [joinChan]);
+  }, []);
 
   // let search = null;
   // if (searChan !== "") {
