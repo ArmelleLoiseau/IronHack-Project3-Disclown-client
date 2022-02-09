@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import "./form.css";
 
 import { AuthContext } from "./../../context/auth.context";
 
@@ -35,23 +36,35 @@ const Signup = () => {
   return (
     <div>
       {/* if user already has token, navigate to dashboard */}
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="username">username</label>
+      <form className="form" onSubmit={handleSubmit}>
+        <label className="form-label" htmlFor="username">
+          username
+        </label>
         <input
+          className="form-input"
+          placeholder="Enter your Username"
           type="text"
           name="username"
           value={user.username}
           onChange={(e) => setUser({ ...user, username: e.target.value })}
         />
-        <label htmlFor="email">email</label>
+        <label className="form-label" htmlFor="email">
+          email
+        </label>
         <input
+          placeholder="Enter your Email"
+          className="form-input"
           type="text"
           name="email"
           value={user.email}
           onChange={(e) => setUser({ ...user, email: e.target.value })}
         />
-        <label htmlFor="password">password</label>
+        <label className="form-label" htmlFor="password">
+          password
+        </label>
         <input
+          placeholder="Enter your password"
+          className="form-input"
           type="text"
           name="password"
           value={user.password}

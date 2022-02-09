@@ -2,6 +2,9 @@ import React, { useContext, useState, useEffect } from "react";
 import useAuth from "../../context/useAuth";
 // import components
 
+//import css
+import "./dashboard-css/dashboard.css";
+
 import UsersList from "./UsersList";
 import Chat from "./Chat";
 import CreateChan from "./CreateChan";
@@ -63,11 +66,20 @@ const Dashboard = () => {
   return (
     <div>
       <h1>Dashboard</h1>
-      <UsersList users={users} />
-      <CreateChan addChan={addChan} />
-      <ChanList setChans={setChans} chans={chans} />
-      <Profil />
-      <Chat />
+      <div className="dashboard">
+        <div className="userList">
+          <UsersList users={users} />
+        </div>
+        <div className="creatChan">
+          <CreateChan addChan={addChan} />
+        </div>
+        <div className="chanList">
+          <ChanList setChans={setChans} chans={chans} />
+        </div>
+        <div className="chat">
+          <Chat />
+        </div>
+      </div>
       {/* {isLoggedIn && (
         <>
           <p>User LoggedIn</p>

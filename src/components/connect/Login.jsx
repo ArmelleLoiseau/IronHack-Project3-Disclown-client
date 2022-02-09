@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
+import "./form.css";
 
 import { AuthContext } from "./../../context/auth.context";
 
@@ -56,16 +57,24 @@ const Login = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="email">email</label>
+      <form className="form" onSubmit={handleSubmit}>
+        <label className="form-label" htmlFor="email">
+          email
+        </label>
         <input
+          placeholder="Enter your Email"
+          className="form-input"
           type="text"
           name="email"
           value={user.email}
           onChange={(e) => setUser({ ...user, email: e.target.value })}
         />
-        <label htmlFor="password">password</label>
+        <label className="form-label" htmlFor="password">
+          password
+        </label>
         <input
+          placeholder="Enter your password"
+          className="form-input"
           type="text"
           name="password"
           value={user.password}
