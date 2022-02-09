@@ -13,14 +13,17 @@ const CreateChan = () => {
   const { chans, addChan, setChans } = useContext(ChanContext);
   const { currentUser } = useAuth();
 
-  const owner = currentUser._id;
-  // console.log(owner);
+  const currentUserID = currentUser._id;
+  console.log("who is the owner ?", currentUserID);
 
   // new Chan variable
   const [chan, setChan] = useState({
     name: "",
-    owner: owner,
+    owner: currentUserID,
   });
+
+  // // get all chans
+  // const [chans, setChans] = useState([]);
 
   const [addedChan, setAddedChan] = useState(false);
 
@@ -41,13 +44,16 @@ const CreateChan = () => {
 
   useEffect(() => {
     axios
-      .get(import.meta.env.VITE_APP_BACKEND_URL + "/chan", chans)
-      .then((dbResponse) => setChans(dbResponse.data))
+      .get(import.meta.env.VITE_APP_BACKEND_URL + "/chan")
+      .then((dbResponse) => {
+        console.log(dbResponse.data);
+        setChans(dbResponse.data);
+      })
       .catch((e) => console.error(e));
   }, [addedChan]);
 
-  const filterChan = chans.filter(function (chan) {
-    return chan.owner._id === owner;
+  const filteredChans = chans.filter((c) => {
+    return c.owner._id === currentUserID;
   });
 
   if (!chans) return <p>loading...</p>;
@@ -69,7 +75,7 @@ const CreateChan = () => {
           </div>
         </div>
         <div>
-          {filterChan.map((chan) => {
+          {filteredChans.map((chan) => {
             return (
               <Link to={`/chan/${chan._id}`} key={chan._id}>
                 <div className="chanList-chan">
