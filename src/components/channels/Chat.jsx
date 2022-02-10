@@ -3,6 +3,7 @@ import apiHandler from "../../api/apiHandler";
 import { SocketContext } from "../../context/socket.context";
 import useAuth from "../../context/useAuth";
 import ScrollToBottom from "react-scroll-to-bottom";
+import EdiText from "react-editext";
 import "./chat.css";
 
 const Chat = () => {
@@ -11,10 +12,12 @@ const Chat = () => {
   const { joinChan, socket, welcomeMess } = useContext(SocketContext);
   const { currentUser } = useAuth();
 
-  const [chosenEmoji, setChosenEmoji] = useState(null);
-  const onEmojiClick = (event, emojiObject) => {
-    setChosenEmoji(emojiObject);
-  };
+  // const [chosenEmoji, setChosenEmoji] = useState(null);
+  // const onEmojiClick = (event, emojiObject) => {
+  //   setChosenEmoji(emojiObject);
+  // };
+
+  const [value, setValue] = useState("");
 
   const getMessages = () => {
     console.log(joinChan);
@@ -59,7 +62,19 @@ const Chat = () => {
             return (
               <div className="sentMessages-text" key={mesg._id}>
                 <img src={mesg.author.avatar} alt={mesg.author.username} />
-                <p className="sentMessages-content">{mesg.content}</p>
+                <p id={mesg._id} className="sentMessages-content">
+                  {mesg.content}
+                </p>
+                <EdiText
+                  type="text"
+                  value={value}
+                  onSave={async (val) => {
+                    const elem = document.getElementById(mesg._id);
+                    elem.remove();
+                    setCurrentMessage(val);
+                    await apiHandler.patch(`/chan/messages/${mesg._id}`, val);
+                  }}
+                />
                 <p className="sentMessages-author">
                   Sent by {mesg.author.username}
                 </p>
