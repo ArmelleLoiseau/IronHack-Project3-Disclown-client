@@ -28,8 +28,9 @@
   cursor: pointer;
 }
 
-.profil-btn i {
-  height: 30px;
+.fa-user-edit,
+.fa-right-from-bracket {
+  font-size: 30px;
 }
 
 .profil-detail span {
