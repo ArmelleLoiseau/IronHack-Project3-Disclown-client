@@ -11,14 +11,16 @@ a {
 /* search bar global list start */
 .searChan,
 .create-chan {
+  /* width: 100%; */
   display: flex;
   justify-content: center;
-  margin-right: 20px;
+  /* margin-right: 20px; */
   padding: 0.7rem;
-  box-shadow: 0px 12px 7px 4px rgba(0, 0, 0, 0.36);
-  -moz-box-shadow: 0px 12px 7px 4px rgba(0, 0, 0, 0.36);
-  -webkit-box-shadow: 0px 12px 7px 4px rgba(0, 0, 0, 0.36);
-  border-radius: 0 0 20px 20px;
+  margin-bottom: 1rem;
+  box-shadow: 0 19px 6px -6px rgba(0, 0, 0, 0.36);
+  -moz-box-shadow: 0 19px 6px -6px rgba(0, 0, 0, 0.36);
+  -webkit-box-shadow: 0 19px 6px -6px rgba(0, 0, 0, 0.36);
+  /* border-radius: 0 0 20px 0; */
 }
 
 .searChan input,
@@ -102,6 +104,9 @@ a {
   cursor: pointer;
   padding: 0.5rem;
   /* background-color: red; */
+}
+.fa-wrench {
+  font-size: 20px;
 }
 
 ::-webkit-scrollbar {
