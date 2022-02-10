@@ -9,7 +9,6 @@ import NotFound from "./components/NotFound";
 function App() {
   return (
     <div className="App">
-      s{" "}
       <Routes>
         <Route path="/" element={<Signup />} />
         <Route path="/login" element={<Login />} />

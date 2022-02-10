@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect, useContext } from "react";
 import apiHandler from "./../../api/apiHandler";
 import useAuth from "../../context/useAuth";
 import { SocketContext } from "../../context/socket.context";
+import "./dashboard-css/profil.css";
+import "./dashboard-css/formEdit.css";
 
 const ProfileDetails = () => {
   // get info from auth context
@@ -126,51 +128,70 @@ const ProfileDetails = () => {
   if (!currentUser) return <p>loading</p>;
   return (
     <div>
+      {isEditing && (
+        <div>
+          <h2>Edit your profil</h2>
+          <form className="formEdit-form">
+            <label className="formEdit-label" htmlFor="username">
+              Username
+            </label>
+            <input
+              className="formEdit-input"
+              type="text"
+              id="username"
+              value={userToUpdate.username}
+              onChange={(e) => {
+                setUserToUpdate({ ...userToUpdate, username: e.target.value });
+              }}
+            />
+            <label className="formEdit-label" htmlFor="email">
+              Email
+            </label>
+            <input
+              className="formEdit-input"
+              type="text"
+              id="email"
+              value={userToUpdate.email}
+              onChange={(e) => {
+                setUserToUpdate({ ...userToUpdate, email: e.target.value });
+              }}
+            />
+            <label className="formEdit-label" htmlFor="avatar">
+              avatar
+            </label>
+            <input
+              className="formEdit-input-file"
+              type="file"
+              name="avatar"
+              id="avatar"
+              ref={avatarRef}
+            />
+            <button onClick={SendForm}>Send</button>
+            <button onClick={cancelEdit}> Nevermind, this is fine</button>
+            <button onClick={confirmDelete}>Delete my account</button>
+          </form>
+        </div>
+      )}
+
       {deleteMode && (
-        <div style={{ width: "100vw", height: "100vw", color: "red" }}>
+        <div className="formEdit-deleteMode">
           <p>Are you sure ? This means goodbye... forever</p>
           <button onClick={cancelDelete}>Nope nope nopity nope</button>
           <button onClick={deleteAccount}>Delete for good</button>
         </div>
       )}
-      {isEditing && (
-        <form>
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            value={userToUpdate.username}
-            onChange={(e) => {
-              setUserToUpdate({ ...userToUpdate, username: e.target.value });
-            }}
-          />
-          <label htmlFor="email">Email</label>
-          <input
-            type="text"
-            id="email"
-            value={userToUpdate.email}
-            onChange={(e) => {
-              setUserToUpdate({ ...userToUpdate, email: e.target.value });
-            }}
-          />
-          <label htmlFor="avatar">avatar</label>
-          <input type="file" name="avatar" id="avatar" ref={avatarRef} />
-          <button onClick={SendForm}>Send</button>
-          <button onClick={cancelEdit}> Nevermind, this is fine</button>
-          <button onClick={confirmDelete}>Delete my account</button>
-        </form>
-      )}
-      {!isEditing && (
-        <div>
-          <p>{userToUpdate?.username}</p>
-          <p>{userToUpdate?.email}</p>
-          <img src={userToUpdate?.avatar} alt={userToUpdate?.username} />
-          <i className="fas fa-user-edit" onClick={handleEditMode}></i>
 
-          <i
-            onClick={handleDisconnect}
-            className="fa-solid fa-right-from-bracket"
-          ></i>
+      {!isEditing && (
+        <div className="profil-detail">
+          <span>{userToUpdate?.username}</span>
+          <img src={userToUpdate?.avatar} alt={userToUpdate?.username} />
+          <div className="profil-btn">
+            <i className="fas fa-user-edit" onClick={handleEditMode}></i>
+            <i
+              onClick={handleDisconnect}
+              className="fa-solid fa-right-from-bracket"
+            ></i>
+          </div>
         </div>
       )}
     </div>

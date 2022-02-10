@@ -5,8 +5,6 @@ import useAuth from "../../context/useAuth";
 //import css
 import "./dashboard-css/dashboard.css";
 
-import UsersList from "./UsersList";
-import Chat from "./Chat";
 import CreateChan from "./CreateChan";
 import ChanList from "./ChanList";
 import Profil from "./Profil";
@@ -18,6 +16,7 @@ const Dashboard = () => {
   const { currentUser, authenticateUser } = useAuth();
   const [users, setUsers] = useState([]);
   const [chans, setChans] = useState([]);
+  const [chanId, setChanId] = useState(null);
 
   const connectWithSocket = useContext(SocketContext);
 
@@ -61,26 +60,22 @@ const Dashboard = () => {
   //   console.log("--->", users);
   // });
 
+  const currentChan = chans.find((c) => c._id === chanId);
+
   if (!users) return <p> loading...</p>;
 
   return (
     <div>
-      <h1>Dashboard</h1>
       <div className="dashboard">
-        <div className="userList">
-          <UsersList users={users} />
+        <div className="profil">
+          <Profil />
         </div>
         <div className="creatChan">
-          <CreateChan addChan={addChan} />
+          <CreateChan addChan={addChan} id={chanId} />
         </div>
         <div className="chanList">
           <ChanList setChans={setChans} chans={chans} />
         </div>
-
-        <div className="chat">
-          <Chat />
-        </div>
-        <Profil />
       </div>
       {/* {isLoggedIn && (
         <>
