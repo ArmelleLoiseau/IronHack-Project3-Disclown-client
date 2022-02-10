@@ -100,7 +100,12 @@ const Signup = () => {
 
       {errorMessage && <p className="error-message">{errorMessage}</p>}
 
-      <Link to={"/login"}> Already have an account ? Click here to login</Link>
+      <Link to={"/login"}>
+        {" "}
+        <span className="formConnect-msg">
+          Already have an account ? Click here to login
+        </span>
+      </Link>
     </div>
   );
 };

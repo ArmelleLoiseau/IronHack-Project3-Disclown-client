@@ -83,7 +83,9 @@ const Login = () => {
         <button>Log in</button>
       </form>
       {errorMessage && <p className="error-message">{errorMessage}</p>}
-      <Link to={"/"}> Not a member yet ? Sign-up !</Link>
+      <Link to={"/"}>
+        <span className="formConnect-msg"> Not a member yet ? Sign-up !</span>
+      </Link>
     </div>
   );
 };
