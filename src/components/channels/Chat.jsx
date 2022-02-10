@@ -22,12 +22,12 @@ const Chat = () => {
 
   useEffect(() => {
     getMessages();
+  
     // socket.emit("chan-join", joinChan);
-    socket.on("receive-message", () => {
-      getMessages();
-      setRefresh(!refresh);
-    });
-  }, [refresh]);
+  
+  }, []);
+
+  
 
   const send = (e) => {
     e.preventDefault();
@@ -38,8 +38,14 @@ const Chat = () => {
         chan: joinChan,
       });
       setCurrentMessage("");
+      getMessages();
     }
   };
+
+  socket.on("receive-message", (data) => {
+    console.log("message received", data);
+    getMessages();
+  });
 
   return (
     <div>
