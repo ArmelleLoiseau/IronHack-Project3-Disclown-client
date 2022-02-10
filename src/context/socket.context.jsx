@@ -69,7 +69,7 @@ function SocketProviderWrapper(props) {
       });
 
       // update the list of connected users
-      setConnectedUsers((prevValue) => users);
+      setConnectedUsers(users);
     });
 
     //handleChans

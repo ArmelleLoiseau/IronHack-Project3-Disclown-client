@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-
+import "./../channels/chat.css";
 // Contexts
 // import { UserContext } from "../../context/user.context";
 import { SocketContext } from "../../context/socket.context";
@@ -16,16 +16,25 @@ const UsersList = () => {
   console.log("Component{UsersList} => connectedUsers", connectedUsers);
   // if (!connectedUsers) return <p>loading...</p>;
   return (
-    <div>
-      <p> users list</p>
+    <div className="users-list">
+      <p> Who is around ?</p>
+      {/* {!connectedUsers.length && (
+        <p>
+          Uh oh, it seems everyone has better things to do... Sorry mate. You
+          can still chat with yourself, if you fancy.
+        </p>
+      )} */}
       {connectedUsers.map((user) => {
         return user.self ? (
-          <div key={user._id}>
-            <p>{user.username}(yourself)</p>
+          <div className="user" key={user._id}>
+            <span className="user-p">&#128994; You (obviously) 🦁</span>
           </div>
         ) : (
-          <div key={user._id}>
-            <p>{user.username}</p>
+          <div className="user" key={user._id}>
+            <span className="user-p">
+              &#128994;
+              {user.username}
+            </span>
           </div>
         );
       })}
