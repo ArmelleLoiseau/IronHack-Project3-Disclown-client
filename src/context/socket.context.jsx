@@ -29,6 +29,10 @@ function SocketProviderWrapper(props) {
   const clientSocket = useRef();
 
   useEffect(() => {
+    console.log("---> chans from socket context are", chans);
+  }, [chans]);
+
+  useEffect(() => {
     if (!isLoggedIn) return;
     const socket = io(import.meta.env.VITE_APP_BACKEND_URL, {
       withCredentials: true,

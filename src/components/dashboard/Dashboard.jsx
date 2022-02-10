@@ -5,7 +5,7 @@ import useAuth from "../../context/useAuth";
 //import css
 import "./dashboard-css/dashboard.css";
 
-import UsersList from "./UsersList";
+// import UsersList from "./UsersList";
 import CreateChan from "./CreateChan";
 import ChanList from "./ChanList";
 import Profil from "./Profil";
@@ -17,6 +17,7 @@ const Dashboard = () => {
   const { currentUser, authenticateUser } = useAuth();
   const [users, setUsers] = useState([]);
   const [chans, setChans] = useState([]);
+  const [chanId, setChanId] = useState(null);
 
   const connectWithSocket = useContext(SocketContext);
 
@@ -34,40 +35,15 @@ const Dashboard = () => {
   const addChan = (addedChan) => {
     setChans([...chans, addedChan]);
   };
-
-  // const initReactiveProperties = (user) => {
-  //   user.hasNewMessages = false;
-  // };
-
-  // socket.on("users", (users) => {
-  //   users.forEach((user) => {
-  //     user.self = user.userID === socket.id;
-  //     // initReactiveProperties(user);
-  //   });
-  //   users = users.sort((a, b) => {
-  //     if (a.self) return -1;
-  //     if (b.self) return 1;
-  //     if (a.userEmail < b.userEmail) return -1;
-  //     return a.userEmail > b.userEmail ? 1 : 0;
-  //   });
-
-  //   socket.on("user connected", (user) => {
-  //     // initReactiveProperties(user);
-  //     users.push(user);
-  //   });
-
-  //   setUsers(users);
-  //   console.log("--->", users);
-  // });
+  const currentChan = chans.find((c) => c._id === chanId);
 
   if (!users) return <p> loading...</p>;
 
   return (
     <div>
-      <h1>Dashboard</h1>
       <div className="dashboard">
-        <div className="userList">
-          <UsersList users={users} />
+        <div className="profil">
+          <Profil />
         </div>
         <div className="creatChan">
           <CreateChan addChan={addChan} />
@@ -75,20 +51,7 @@ const Dashboard = () => {
         <div className="chanList">
           <ChanList setChans={setChans} chans={chans} />
         </div>
-
-        <div className="chat"></div>
-        <Profil />
       </div>
-      {/* {isLoggedIn && (
-        <>
-          <p>User LoggedIn</p>
-        </>
-      )}
-      {!isLoggedIn && (
-        <>
-          <p>User !logged</p>
-        </>
-      )} */}
     </div>
   );
 };

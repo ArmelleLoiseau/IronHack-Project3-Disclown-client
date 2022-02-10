@@ -23,7 +23,7 @@ function Channel() {
   if (!currentChan) return <p> loading...</p>;
   console.log(currentChan);
   return (
-    <div>
+    <div className="channel-main">
       <h2> You are on {currentChan.name}</h2>
       <img
         src={currentChan.image}

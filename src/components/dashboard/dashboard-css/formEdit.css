@@ -1,0 +1,56 @@
+.formEdit {
+    height: 500px;
+    background-color: #d7c0c0;
+    box-shadow: 0px 0px 10px 4px rgba(200, 200, 200, 0.75);
+    -moz-box-shadow: 0px 0px 10px 4px rgba(200, 200, 200, 0.75);
+    -webkit-box-shadow: 0px 0px 10px 4px rgba(200, 200, 200, 0.75);
+    border-radius: 20px;
+    padding: 2rem;
+  }
+  
+  .creatChan {
+    background-color: #d7c0c0;
+    border-radius: 20px;
+  }
+  
+  .formEdit-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+    padding: 2rem;
+  }
+  
+  .formEdit-form > label {
+    font-weight: bolder;
+  }
+  
+  .formEdit-form > input {
+    margin: 0.2rem;
+    height: 40px;
+    text-align: center;
+  }
+  
+  .formEdit-form button,
+  .formEdit-deleteMode button {
+    margin-top: 0.2rem;
+    letter-spacing: 0.05rem;
+    position: relative;
+    overflow: hidden;
+    transition: 0.3s ease-in-out;
+    border-radius: 0.3rem;
+    z-index: 1;
+  }
+  
+  .formEdit-form button:hover,
+  .formEdit-deleteMode button:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    transform: scale(0.95);
+  }
+  
+  .formEdit-deleteMode {
+    margin-top: 1rem;
+  }
+  
+  .formEdit-deleteMode button {
+    margin: 0.2rem;
+  }

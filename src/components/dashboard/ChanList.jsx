@@ -1,60 +1,72 @@
 import React, { useState, useEffect, useContext } from "react";
-import axios from "axios";
+import apiHandler from "../../api/apiHandler";
 import { Link } from "react-router-dom";
-import "./dashboard-css/chanList.css";
+import "./dashboard-css/list.css";
 
 // contexts
 import { SocketContext } from "../../context/socket.context";
-// import SearchChan from "./SearchChan";
+// import { ChanContext } from "../../context/chan.context";
+import SearchChan from "./SearchChan";
 
 const ChanList = () => {
   const { chans, setChans, setJoinChan, joinChan } = useContext(SocketContext);
-  // const { searChan, setSearChan } = useContext(ChanContext);
+  // const { setJoinChan } = useContext(SocketContext);
+  // const { chans, setChans } = useContext(ChanContext);
+  const [searchChan, setSearchChan] = useState("");
+
+  if (!chans) return <p>loading...</p>;
 
   useEffect(() => {
-    axios
-      .get(import.meta.env.VITE_APP_BACKEND_URL + "/chan", chans)
+    apiHandler
+      .get("/chan")
       .then((dbResponse) => setChans(dbResponse.data))
       .catch((e) => console.error(e));
   }, []);
 
-  // let search = null;
-  // if (searChan !== "") {
-  //   sear = chans.filter((chan) => {
-  //     return chan.name.tolowerCase().includes(searChan.tolowerCase());
-  //   });
-  // } else {
-  //   search = chans;
-  // }
+  let search = null;
+  if (searchChan !== "") {
+    search = chans.filter((chan) => {
+      return chan.name.toLowerCase().includes(searchChan.toLowerCase());
+    });
+  } else {
+    search = chans;
+  }
 
-  if (!chans) return <p>loading...</p>;
   return (
     <>
-      <div className="chanList-content">
+      <div className="chanlist">
         <div className="chanList-header">
-          <h2>Chan List global</h2>
-          <div className="searchChan">{/* <SearchChan /> */}</div>
+          <h2>All channels</h2>
+          <div className="searChan">
+            <SearchChan
+              searchChan={searchChan}
+              callbackSearch={setSearchChan}
+            />
+          </div>
         </div>
-        {chans.map((chan) => {
-          return (
-            <Link
-              onClick={() => {
-                setJoinChan((prevValue) => chan._id);
-              }}
-              to={`/chan/${chan._id}`}
-              key={chan._id}
-            >
-              <div className="chanList-chan">
-                <img
-                  className="chanList-image"
-                  src={chan.image}
-                  alt={chan.name}
-                />
-                <p>{chan.name}</p>
+        <div className="chanList-content">
+          {search.map((chan) => {
+            return (
+              <div className="chanList-chan" key={chan._id + "chan"}>
+                <Link
+                  onClick={() => {
+                    setJoinChan((prevValue) => chan._id);
+                  }}
+                  to={`/chan/${chan._id}`}
+                >
+                  <div className="chanList-chan-content">
+                    <img
+                      className="chanList-image"
+                      src={chan.image}
+                      alt={chan.name}
+                    />
+                    <h4>{chan.name}</h4>
+                  </div>
+                </Link>
               </div>
-            </Link>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </>
   );
