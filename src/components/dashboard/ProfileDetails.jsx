@@ -127,68 +127,71 @@ const ProfileDetails = () => {
   if (!currentUser) return <p>loading</p>;
   return (
     <div>
-      {deleteMode && (
-        <div className="delete-mode container">
-          <p>Are you sure ? This means goodbye... forever</p>
-          <button className="profil-btn" onClick={cancelDelete}>
-            Nope nope nopity nope
-          </button>
-          <button className="profil-btn" onClick={deleteAccount}>
-            Delete for good
-          </button>
+      {isEditing && (
+        <div>
+          <form className="formEdit-form">
+            <label className="formEdit-label" htmlFor="username">
+              Username
+            </label>
+            <input
+              className="formEdit-input"
+              type="text"
+              id="username"
+              value={userToUpdate.username}
+              onChange={(e) => {
+                setUserToUpdate({ ...userToUpdate, username: e.target.value });
+              }}
+            />
+            <label className="formEdit-label" htmlFor="email">
+              Email
+            </label>
+            <input
+              className="formEdit-input"
+              type="text"
+              id="email"
+              value={userToUpdate.email}
+              onChange={(e) => {
+                setUserToUpdate({ ...userToUpdate, email: e.target.value });
+              }}
+            />
+            <label className="formEdit-label" htmlFor="avatar">
+              avatar
+            </label>
+            <input
+              className="formEdit-input-file"
+              type="file"
+              name="avatar"
+              id="avatar"
+              ref={avatarRef}
+            />
+            <button onClick={SendForm}>Send</button>
+            <button onClick={cancelEdit}> Nevermind, this is fine</button>
+            <button onClick={confirmDelete}>Delete my account</button>
+          </form>
         </div>
       )}
-      {isEditing && (
-        <form className="edit-mode container">
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            value={userToUpdate.username}
-            onChange={(e) => {
-              setUserToUpdate({ ...userToUpdate, username: e.target.value });
-            }}
-          />
-          <label htmlFor="email">Email</label>
-          <input
-            type="text"
-            id="email"
-            value={userToUpdate.email}
-            onChange={(e) => {
-              setUserToUpdate({ ...userToUpdate, email: e.target.value });
-            }}
-          />
-          <label htmlFor="avatar">avatar</label>
-          <input type="file" name="avatar" id="avatar" ref={avatarRef} />
-          <button className="profil-btn" onClick={SendForm}>
-            Send
-          </button>
-          <button className="profil-btn" onClick={cancelEdit}>
-            {" "}
-            Nevermind, this is fine
-          </button>
-          <button className="profil-btn" onClick={confirmDelete}>
-            Delete my account
-          </button>
-        </form>
+
+      {deleteMode && (
+        <div className="formEdit-deleteMode">
+          <p>Are you sure ? This means goodbye... forever</p>
+          <button onClick={cancelDelete}>Nope nope nopity nope</button>
+          <button onClick={deleteAccount}>Delete for good</button>
+        </div>
       )}
+
       {!isEditing && (
-        <div className="display-mode container">
-          <p className="display-mode username">{userToUpdate?.username}</p>
-          <p className="display-mode email">{userToUpdate?.email}</p>
+        <div className="profil-detail">
+          <span>Hello {userToUpdate?.username}</span>
           <img
-            className="display-mode avatar"
             src={userToUpdate?.avatar}
             alt={userToUpdate?.username}
+            onClick={handleEditMode}
           />
-          <div className="display-mode icons-container">
-            <i
-              className="fas fa-user-edit display-mode icon"
-              onClick={handleEditMode}
-            ></i>
+          <div className="profil-btn">
+            <i className="fas fa-user-edit" onClick={handleEditMode}></i>
             <i
               onClick={handleDisconnect}
-              className="fa-solid fa-right-from-bracket display-mode icon"
+              className="fa-solid fa-right-from-bracket"
             ></i>
           </div>
         </div>

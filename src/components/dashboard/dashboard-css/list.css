@@ -11,9 +11,14 @@ a {
 /* search bar global list start */
 .searChan,
 .create-chan {
-  margin: 10px;
+  display: flex;
   justify-content: center;
-  margin-right: 30px;
+  margin-right: 20px;
+  padding: 0.7rem;
+  box-shadow: 0px 12px 7px 4px rgba(0, 0, 0, 0.36);
+  -moz-box-shadow: 0px 12px 7px 4px rgba(0, 0, 0, 0.36);
+  -webkit-box-shadow: 0px 12px 7px 4px rgba(0, 0, 0, 0.36);
+  border-radius: 0 0 20px 20px;
 }
 
 .searChan input,
@@ -36,16 +41,21 @@ a {
 .create-chan span {
   margin-left: 0.3rem;
   height: 40px;
-  width: 50px;
+  width: auto;
   border: 2px solid black;
   border-radius: 10px;
   cursor: pointer;
   vertical-align: middle;
   padding: 0.3rem;
   font-size: small;
-  /* background-color: rgb(209, 191, 166); */
 }
 /* create chan end */
+
+.chanList-header span {
+  margin-left: 5%;
+  font-size: large;
+  font-weight: bolder;
+}
 
 .chanlist {
   background-color: #d7c0c0;
@@ -62,8 +72,8 @@ a {
 
 .chanList-chan {
   position: relative;
-  width: 200px;
-  margin: auto;
+  width: auto;
+  margin: 0 1rem;
 }
 
 .chanList-chan-content {
@@ -73,7 +83,9 @@ a {
   border-radius: 20px;
   padding: 0.3rem;
 }
-.chanList-chan-content h4 {
+.chanList-chan-content span {
+  font-size: 2em;
+  font-weight: bolder;
   text-align: center;
   margin: auto;
 }
@@ -85,9 +97,11 @@ a {
 
 .chanList-editBtn {
   position: absolute;
-  left: 213px;
-  bottom: 34px;
+  left: 90%;
+  bottom: 40%;
   cursor: pointer;
+  padding: 0.5rem;
+  /* background-color: red; */
 }
 
 ::-webkit-scrollbar {

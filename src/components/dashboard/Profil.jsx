@@ -8,7 +8,6 @@ import ProfileDetails from "./ProfileDetails";
 const Profil = () => {
   return (
     <div className="profil__container">
-      <h2>Your profile</h2>
       <ProfileDetails />
     </div>
   );

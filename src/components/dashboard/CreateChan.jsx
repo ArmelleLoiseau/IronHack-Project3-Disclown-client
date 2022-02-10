@@ -13,7 +13,7 @@ const CreateChan = () => {
   // Get all chans + function to create a new chan from context
   // const { chans, addChan, setChans } = useContext(ChanContext);
   const { currentUser } = useAuth();
-  const { chans, setChans, addChan } = useContext(SocketContext);
+  const { chans, setChans, addChan, setJoinChan } = useContext(SocketContext);
 
   const currentUserID = currentUser._id;
 
@@ -49,7 +49,7 @@ const CreateChan = () => {
         setChans(dbResponse.data);
       })
       .catch((e) => console.error(e));
-  }, [addedChan]);
+  }, [addedChan, chanToUpdate]);
 
   useEffect(() => {
     console.log("useEffect : where are the chans ? :", chans);
@@ -141,7 +141,7 @@ const CreateChan = () => {
     <div>
       {isEditing && (
         <div>
-          <h2>Edit your channel</h2>
+          <span>Edit your channel</span>
           <form className="formEdit-form">
             <label className="formEdit-label" htmlFor="name">
               Name
@@ -163,24 +163,30 @@ const CreateChan = () => {
               type="file"
               name="image"
             />
-            <button onClick={handleEditChan}>Edit</button>
-            <button onClick={handleCancelEditChan}>Cancel Edit</button>
-            <button onClick={confirmDelete}>Delete Chan</button>
+            <div className="formEdit-btn">
+              <button onClick={handleEditChan}>Edit</button>
+              <button onClick={handleCancelEditChan}>Cancel Edit</button>
+              <button onClick={confirmDelete}>Delete Chan</button>
+            </div>
           </form>
         </div>
       )}
       {deleteMode && (
-        <div className="formEdit-deleteMode">
-          <p>Are you sure ?r</p>
-          <button onClick={cancelDelete}>Nope nope nopity nope</button>
-          <button onClick={deleteChan}>Delete for good</button>
-        </div>
+        <>
+          <div className="formEdit-deleteMode">
+            <p>Are you sure ?r</p>
+            <div className="formEdit-deleteMode-btn">
+              <button onClick={cancelDelete}>Nope nope nopity nope</button>
+              <button onClick={deleteChan}>Delete for good</button>
+            </div>
+          </div>
+        </>
       )}
 
       {!isEditing && (
         <div className="chanlist">
           <div className="chanList-header">
-            <h2>Chan List Perso</h2>
+            <span>Your own channels</span>
             <div className="create-chan">
               <input
                 placeholder="Enter a name for a new channel"
@@ -197,14 +203,19 @@ const CreateChan = () => {
             {filteredChans.map((chan) => {
               return (
                 <div className="chanList-chan" key={chan._id + "filtered"}>
-                  <Link to={`/chan/${chan._id}`}>
+                  <Link
+                    onClick={() => {
+                      setJoinChan((prevValue) => chan._id);
+                    }}
+                    to={`/chan/${chan._id}`}
+                  >
                     <div className="chanList-chan-content">
                       <img
                         className="chanList-image"
                         src={chan.image}
                         alt={chan.name}
                       />
-                      <h4>{chan.name}</h4>
+                      <span>{chan.name}</span>
                     </div>
                   </Link>
                   <div className="chanList-editBtn">

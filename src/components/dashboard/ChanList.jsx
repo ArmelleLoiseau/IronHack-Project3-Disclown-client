@@ -5,13 +5,10 @@ import "./dashboard-css/list.css";
 
 // contexts
 import { SocketContext } from "../../context/socket.context";
-// import { ChanContext } from "../../context/chan.context";
 import SearchChan from "./SearchChan";
 
 const ChanList = () => {
   const { chans, setChans, setJoinChan, joinChan } = useContext(SocketContext);
-  // const { setJoinChan } = useContext(SocketContext);
-  // const { chans, setChans } = useContext(ChanContext);
   const [searchChan, setSearchChan] = useState("");
 
   if (!chans) return <p>loading...</p>;
@@ -36,7 +33,7 @@ const ChanList = () => {
     <>
       <div className="chanlist">
         <div className="chanList-header">
-          <h2>All channels</h2>
+          <span>All channels</span>
           <div className="searChan">
             <SearchChan
               searchChan={searchChan}
@@ -60,7 +57,7 @@ const ChanList = () => {
                       src={chan.image}
                       alt={chan.name}
                     />
-                    <h4>{chan.name}</h4>
+                    <span>{chan.name}</span>
                   </div>
                 </Link>
               </div>
