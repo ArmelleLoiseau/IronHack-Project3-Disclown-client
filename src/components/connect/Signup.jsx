@@ -48,7 +48,7 @@ const Signup = () => {
   };
 
   return (
-    <div>
+    <div className="formConnect">
       {/* if user already has token, navigate to dashboard */}
       <form className="form" onSubmit={handleSubmit}>
         <label className="form-label" htmlFor="username">
@@ -87,8 +87,8 @@ const Signup = () => {
           value={user.password}
           onChange={(e) => setUser({ ...user, password: e.target.value })}
         />
-        <div>
-          <p>This will be your profile pic</p>
+        <div className="formConnect-avatar">
+          <p className="formConnect-msg">This will be your profile pic</p>
           {/* {avatarRef.current} */}
           <img
             src={`https://avatars.dicebear.com/api/bottts/${user.username}.svg`}
@@ -97,10 +97,14 @@ const Signup = () => {
         </div>
         <button>Sign up</button>
       </form>
-
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
-
-      <Link to={"/login"}> Already have an account ? Click here to login</Link>
+      <div className="formConnect-msg">
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+        <Link to={"/login"}>
+          <span className="formConnect-msg">
+            Already have an account ? Click here to login
+          </span>
+        </Link>
+      </div>
     </div>
   );
 };

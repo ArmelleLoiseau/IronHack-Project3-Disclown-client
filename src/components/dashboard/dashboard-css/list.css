@@ -11,16 +11,14 @@ a {
 /* search bar global list start */
 .searChan,
 .create-chan {
-  /* width: 100%; */
   display: flex;
   justify-content: center;
-  /* margin-right: 20px; */
-  padding: 0.7rem;
-  margin-bottom: 1rem;
+  padding: 1rem;
+  margin: 0 20px 0 0;
+  box-shadow: 0 19px 6px -6p;
   box-shadow: 0 19px 6px -6px rgba(0, 0, 0, 0.36);
   -moz-box-shadow: 0 19px 6px -6px rgba(0, 0, 0, 0.36);
   -webkit-box-shadow: 0 19px 6px -6px rgba(0, 0, 0, 0.36);
-  /* border-radius: 0 0 20px 0; */
 }
 
 .searChan input,
@@ -70,6 +68,7 @@ a {
 
 .chanList-content {
   position: relative;
+  top: 10px;
 }
 
 .chanList-chan {

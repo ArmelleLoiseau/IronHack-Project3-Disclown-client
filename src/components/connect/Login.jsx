@@ -30,12 +30,6 @@ const Login = () => {
     try {
       const dbResponse = await apiHandler.post("/login", user);
 
-      // set socket.auth to user.email and connect to socket
-      // let email = user.email;
-      // socket.auth = { email };
-      // console.log(email);
-      // socket.connect();
-
       // store the jwt token in local storage
       storeToken(dbResponse.data.authToken);
 
@@ -52,10 +46,10 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className="formConnect">
       <form className="form" onSubmit={handleSubmit}>
         <label className="form-label" htmlFor="email">
-          email
+          Email
         </label>
         <input
           placeholder="Enter your Email"
@@ -66,7 +60,7 @@ const Login = () => {
           onChange={(e) => setUser({ ...user, email: e.target.value })}
         />
         <label className="form-label" htmlFor="password">
-          password
+          Password
         </label>
         <input
           placeholder="Enter your password"
@@ -78,8 +72,12 @@ const Login = () => {
         />
         <button>Log in</button>
       </form>
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
-      <Link to={"/"}> Not a member yet ? Sign-up !</Link>
+      <div className="formConnect-msg">
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+        <Link to={"/"}>
+          <span className="formConnect-msg"> Not a member yet ? Sign-up !</span>
+        </Link>
+      </div>
     </div>
   );
 };
