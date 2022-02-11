@@ -1,0 +1,22 @@
+div p {
+  font-size: 50px;
+  text-align: center;
+  color: red;
+}
+
+.notFound-link {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  text-align: center;
+}
+
+.notFound-link span {
+  font-size: 30px;
+}
+
+.notFound-link img {
+  margin: auto;
+  width: 300px;
+  height: auto;
+}

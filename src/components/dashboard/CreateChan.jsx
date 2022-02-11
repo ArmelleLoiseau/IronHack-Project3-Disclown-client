@@ -167,7 +167,7 @@ const CreateChan = () => {
       {deleteMode && (
         <>
           <div className="formEdit-deleteMode">
-            <p>Are you sure ?r</p>
+            <p>Are you sure ?</p>
             <div className="formEdit-deleteMode-btn">
               <button onClick={cancelDelete}>Nope nope nopity nope</button>
               <button onClick={deleteChan}>Delete for good</button>

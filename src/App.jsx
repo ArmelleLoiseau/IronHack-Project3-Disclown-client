@@ -11,6 +11,9 @@ import VideoPage from "./components/video/VideoPage";
 function App() {
   return (
     <div className="App">
+      <div className="headerApp">
+        <span>Disclown</span>
+      </div>
       <Routes>
         <Route path="/" element={<Signup />} />
         <Route path="/login" element={<Login />} />

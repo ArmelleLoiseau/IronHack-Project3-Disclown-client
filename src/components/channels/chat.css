@@ -77,15 +77,14 @@
   padding: 20px;
 }
 
-.react-scroll-to-bottom--css-zmqjr-1n7m0yu {
+.chat-container {
   background-color: #d7c0c0;
   border-radius: 20px;
 }
 
 .sentMessages-text {
   margin: 10px;
-  max-width: 80%;
-  /* background-color: #b8a4a4; */
+  max-width: 100%;
   width: max-content;
   padding: 10px;
   border-radius: 20px;
@@ -108,14 +107,22 @@
 }
 
 .sentMessages-header img {
-  height: 30px;
+  width: 40px;
+  height: auto;
   margin-left: 0;
   padding-left: 0;
 }
 
-.sentMessages-content {
+.sentMessages-content,
+.sentMessages-main-card div:nth-child(1) {
   font-size: 20px;
   padding-bottom: 0;
+  word-wrap: break-word;
+  overflow: hidden;
+}
+
+.sentMessages-main-card div:nth-child(1) input {
+  flex-direction: column;
 }
 
 .sentMessages-main-card {
@@ -124,12 +131,13 @@
   align-items: center;
 }
 
-.styles-module_Editext__main_container__2azCD {
-  background-color: transparent;
-}
-
-.styles-module_Editext__edit_button__310_J {
+.sentMessages-text button {
   border-radius: 50%;
+  margin-left: 0rem;
+  background-color: transparent;
+  background: #eef0f4;
+  border-radius: 100%;
+  box-shadow: inset 7px 7px 14px #d4d6d9, inset -7px -7px 14px #ffffff;
 }
 
 .edit-not-visible {
@@ -148,10 +156,12 @@
   border-radius: 20px;
   font-size: 20px;
   padding-left: 30px;
+  margin: 1rem;
+  border: transparent;
+  background-color: #b8a4a4;
 }
 
 .send-icon {
-  background-color: white;
   border-radius: 20px;
   width: fit-content;
   display: flex;
@@ -159,6 +169,8 @@
   justify-content: center;
   align-items: center;
   padding: 8px;
+  background-color: transparent;
+  margin-right: 1%;
 }
 
 .fa-paper-plane {
@@ -166,10 +178,10 @@
 }
 
 .styles-module_Editext__view_container__3oSYx div:first-child {
-  font-size: 20px;
-  background-color: transparent;
+  /* font-size: 20px; */
 }
 
-.styles-module_Editext__buttons_container__2za5Q {
-  margin-left: 10rem;
+.sentMessages-main-card div:nth-child(1) {
+  font-size: 20px;
+  background-color: transparent;
 }

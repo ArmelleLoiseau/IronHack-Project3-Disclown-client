@@ -82,7 +82,7 @@ const Signup = () => {
         <input
           placeholder="Enter your password"
           className="form-input"
-          type="text"
+          type="password"
           name="password"
           value={user.password}
           onChange={(e) => setUser({ ...user, password: e.target.value })}
