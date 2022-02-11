@@ -39,8 +39,6 @@
   height: 60vh;
   justify-content: space-between;
   width: 50vw;
-  max-width: 100%;
-  gap: 0;
 }
 
 .users-list,
@@ -74,114 +72,28 @@
 .sentMessages {
   height: 50vh;
   font-size: 40px;
-  padding: 20px;
 }
 
-.chat-container {
+.react-scroll-to-bottom--css-hfaop-1n7m0yu {
   background-color: #d7c0c0;
-  border-radius: 20px;
 }
 
 .sentMessages-text {
   margin: 10px;
-  max-width: 100%;
-  width: max-content;
-  padding: 10px;
-  border-radius: 20px;
+  max-width: 80%;
 }
 
-.sentMessages-text.author {
-  background-color: rgba(184, 164, 164, 0.3);
-  align-self: end;
+.sentMessages-content {
+  font-size: 18px;
 }
 
-.not-author {
-  background-color: #b8a4a4;
-}
-
-.sentMessages-header {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-.sentMessages-header img {
-  width: 40px;
-  height: auto;
-  margin-left: 0;
-  padding-left: 0;
-}
-
-.sentMessages-content,
-.sentMessages-main-card div:nth-child(1) {
-  font-size: 20px;
-  padding-bottom: 0;
-  word-wrap: break-word;
-  overflow: hidden;
-}
-
-.sentMessages-main-card div:nth-child(1) input {
-  flex-direction: column;
-}
-
-.sentMessages-main-card {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.sentMessages-text button {
-  border-radius: 50%;
-  margin-left: 0rem;
-  background-color: transparent;
-  background: #eef0f4;
-  border-radius: 100%;
-  box-shadow: inset 7px 7px 14px #d4d6d9, inset -7px -7px 14px #ffffff;
-}
-
-.edit-not-visible {
-  visibility: hidden;
-}
-
-.sendMessage {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
+.sentMessages-author {
+  font-size: 15px;
+  color: rgb(73, 71, 71);
 }
 
 .sendMessage > input {
   width: 90%;
   height: 50px;
   border-radius: 20px;
-  font-size: 20px;
-  padding-left: 30px;
-  margin: 1rem;
-  border: transparent;
-  background-color: #b8a4a4;
-}
-
-.send-icon {
-  border-radius: 20px;
-  width: fit-content;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 8px;
-  background-color: transparent;
-  margin-right: 1%;
-}
-
-.fa-paper-plane {
-  font-size: 30px;
-}
-
-.styles-module_Editext__view_container__3oSYx div:first-child {
-  /* font-size: 20px; */
-}
-
-.sentMessages-main-card div:nth-child(1) {
-  font-size: 20px;
-  background-color: transparent;
 }

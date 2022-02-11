@@ -6,7 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import { AuthProviderWrapper } from "./context/auth.context";
 import { SocketProviderWrapper } from "./context/socket.context";
 import { UserContextWrapper } from "./context/user.context";
-import { videoContextWrapper } from "./context/video.context";
+// import { videoContextWrapper } from "./context/video.context";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -14,9 +14,9 @@ ReactDOM.render(
       <AuthProviderWrapper>
         <SocketProviderWrapper>
           <UserContextWrapper>
-            <videoContextWrapper>
-              <App />
-            </videoContextWrapper>
+            {/* <videoContextWrapper> */}
+            <App />
+            {/* </videoContextWrapper> */}
           </UserContextWrapper>
         </SocketProviderWrapper>
       </AuthProviderWrapper>
