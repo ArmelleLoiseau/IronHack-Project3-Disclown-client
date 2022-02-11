@@ -4,7 +4,7 @@ import "./notFoucnd.css";
 
 const NotFound = () => {
   return (
-    <div>
+    <div className="notFound">
       <p>Sorry, it seems you're looking for something that doesn't exist...</p>
       <Link to="/">
         <div className="notFound-link">

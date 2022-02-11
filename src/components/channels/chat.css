@@ -35,10 +35,12 @@
 .chat-container {
   display: flex;
   flex-direction: column;
-  gap: 20px;
   height: 60vh;
   justify-content: space-between;
   width: 50vw;
+  background-color: #d7c0c0;
+  border-radius: 20px;
+  padding: 10px;
 }
 
 .users-list,
@@ -81,10 +83,23 @@
 .sentMessages-text {
   margin: 10px;
   max-width: 80%;
+  border-radius: 20px;
+  padding: 10px;
+  background: rgb(184, 164, 164);
+}
+
+.sentMessages-text.author {
+  /* background-color: red; */
+}
+
+.sentMessages-text:nth-child(1) {
+  font-size: 20px;
 }
 
 .sentMessages-content {
   font-size: 18px;
+  word-wrap: break-word;
+  overflow: hidden;
 }
 
 .sentMessages-author {
@@ -96,4 +111,39 @@
   width: 90%;
   height: 50px;
   border-radius: 20px;
+  background-color: transparent;
+  outline: none;
+  text-align: center;
+  font-size: 20px;
+}
+.sendMessage > input::placeholder {
+  font-size: 20px;
+}
+
+.sendMessage {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.fa-paper-plane {
+  font-size: 30px;
+  padding: 10px;
+}
+
+.sentMessages-main-card {
+  display: flex;
+}
+
+.sentMessages-main-card button {
+  border-radius: 20px;
+}
+
+.sentMessages-main-card div:first-child {
+  font-size: 20px;
+}
+
+.sentMessages-text div:nth-child(2) {
+  display: flex;
+  flex-direction: column;
 }

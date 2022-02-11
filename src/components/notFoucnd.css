@@ -1,4 +1,4 @@
-div p {
+.notFound p {
   font-size: 50px;
   text-align: center;
   color: red;
@@ -12,6 +12,7 @@ div p {
 }
 
 .notFound-link span {
+  color: white;
   font-size: 30px;
 }
 
