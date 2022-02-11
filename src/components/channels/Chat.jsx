@@ -11,6 +11,7 @@ const Chat = () => {
   const [sentMessages, setSentMessages] = useState([]);
   const { joinChan, socket, welcomeMess } = useContext(SocketContext);
   const { currentUser } = useAuth();
+  // const [isAuthor, setIsAuthor] = useState([]);
 
   // const [chosenEmoji, setChosenEmoji] = useState(null);
   // const onEmojiClick = (event, emojiObject) => {
@@ -20,19 +21,24 @@ const Chat = () => {
   const [value, setValue] = useState("");
 
   const getMessages = () => {
-    console.log(joinChan);
     apiHandler
       .get(`/chan/${joinChan}/messages`)
       .then((dbResponse) => {
         setSentMessages(dbResponse.data);
       })
       .catch((e) => console.error(e));
+
+    // if (sentMessages) {
+    //   setIsAuthor(
+    //     sentMessages.filter((msg) => msg.author._id === currentUser._id)
+    //   );
+    // }
+
+    // console.log(isAuthor);
   };
 
   useEffect(() => {
     getMessages();
-
-    // socket.emit("chan-join", joinChan);
   }, []);
 
   const send = (e) => {
@@ -57,27 +63,51 @@ const Chat = () => {
     <div className="chat-container">
       <ScrollToBottom>
         <div className="sentMessages">
-          <h2 className="sentMessages-title">chat</h2>
+          <h2 className="sentMessages-title">🐈 Chat 🐈</h2>
           {sentMessages.map((mesg) => {
             return (
-              <div className="sentMessages-text" key={mesg._id}>
-                <img src={mesg.author.avatar} alt={mesg.author.username} />
-                <p id={mesg._id} className="sentMessages-content">
-                  {mesg.content}
-                </p>
-                <EdiText
-                  type="text"
-                  value={value}
-                  onSave={async (val) => {
-                    const elem = document.getElementById(mesg._id);
-                    elem.remove();
-                    setCurrentMessage(val);
-                    await apiHandler.patch(`/chan/messages/${mesg._id}`, val);
-                  }}
-                />
-                <p className="sentMessages-author">
-                  Sent by {mesg.author.username}
-                </p>
+              <div
+                className={`sentMessages-text ${
+                  mesg.author._id === currentUser._id ? "author" : "not-author"
+                }`}
+                key={mesg._id}
+              >
+                <div className="sentMessages-header">
+                  <img src={mesg.author.avatar} alt={mesg.author.username} />
+                  <p className="sentMessages-author">
+                    {`${
+                      mesg.author._id === currentUser._id
+                        ? "Sent by you"
+                        : `Sent by ${mesg.author.username}`
+                    }`}
+                  </p>
+                </div>
+                <div className="sentMessages-main-card">
+                  <p id={mesg._id} className="sentMessages-content">
+                    {mesg.content}
+                  </p>
+                  <div
+                    className={`sentMessages-text ${
+                      mesg.author._id === currentUser._id
+                        ? "edit-visible"
+                        : "edit-not-visible"
+                    }`}
+                  >
+                    <EdiText
+                      type="text"
+                      value={value}
+                      onSave={async (val) => {
+                        const elem = document.getElementById(mesg._id);
+                        elem.remove();
+                        setCurrentMessage(val);
+                        await apiHandler.patch(
+                          `/chan/messages/${mesg._id}`,
+                          val
+                        );
+                      }}
+                    />
+                  </div>
+                </div>
               </div>
             );
           })}
@@ -88,13 +118,18 @@ const Chat = () => {
         <input
           type="text"
           value={currentMessage}
+          placeholder="Write something witty here"
           onChange={(e) => setCurrentMessage(e.target.value)}
           onKeyPress={(e) => {
             if (e.key === "Enter") send(e);
           }}
         />
-        <i class="fa-solid fa-paper-plane-top" onClick={send} Submit></i>
-        <button onClick={send}>Submit</button>
+
+        <div className="send-icon">
+          <i class="fa-solid fa-paper-plane" onClick={send} Submit></i>
+        </div>
+        {/* <button onClick={send}>
+        </button> */}
       </div>
     </div>
   );

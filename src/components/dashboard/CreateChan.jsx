@@ -5,13 +5,10 @@ import "./dashboard-css/list.css";
 import "./dashboard-css/formEdit.css";
 
 // contexts
-// import { ChanContext } from "../../context/chan.context";
 import useAuth from "../../context/useAuth";
 import { SocketContext } from "../../context/socket.context";
 
 const CreateChan = () => {
-  // Get all chans + function to create a new chan from context
-  // const { chans, addChan, setChans } = useContext(ChanContext);
   const { currentUser } = useAuth();
   const { chans, setChans, addChan, setJoinChan } = useContext(SocketContext);
 
@@ -59,10 +56,6 @@ const CreateChan = () => {
       })
     );
   }, [addedChan, chans, chan]);
-
-  // const filteredChans = chans.filter((c) => {
-  //   return c.owner._id === currentUserID;
-  // });
 
   const handleClick = async (e) => {
     e.preventDefault;

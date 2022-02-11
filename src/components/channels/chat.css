@@ -38,7 +38,9 @@
     gap: 20px;
     height: 60vh;
     justify-content: space-between;
-    width: 50vw
+    width: 50vw;
+    max-width: 100%;
+    gap: 0
 }
 
 .users-list, .sendMessages {
@@ -70,31 +72,94 @@
 .sentMessages {
     height: 50vh;
     font-size: 40px;
-
+    padding: 20px;
 }
 
-.react-scroll-to-bottom--css-hfaop-1n7m0yu {
+.react-scroll-to-bottom--css-mamws-79elbk, .react-scroll-to-bottom--css-oeifm-1n7m0yu {
     background-color: #d7c0c0;
+    border-radius: 20px;
 }
 
 .sentMessages-text {
     margin:10px; 
-    max-width: 80%
+    max-width: 80%;
+    background-color: #b8a4a4;
+    width:max-content;
+    padding: 10px;
+    border-radius: 20px;
 }   
 
-.sentMessages-content {
-    font-size: 18px;
+.sentMessages-text.author {
+    background-color: rgba(184, 164, 164, 0.3);
+    align-self: end;
 }
 
-.sentMessages-author {
-    font-size: 15px;
-    color: rgb(73, 71, 71);
+.sentMessages-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.sentMessages-header img {
+    height: 30px;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+
+.sentMessages-content {
+    font-size: 20px;
+    padding-bottom: 0;
+}
+
+.sentMessages-main-card {
+    display: flex;
+    justify-content: space-between;
+    gap: 60px;
+    align-items: center;
+}
+
+.styles-module_Editext__main_container__2azCD  {
+    background-color: transparent;
+}
+
+.styles-module_Editext__edit_button__310_J {
+    width: 30px;
+    border-radius: 20px;
+}
+
+.edit-not-visible {
+    visibility: hidden;
+}
+
+.sendMessage {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
 
 .sendMessage>input {
     width: 90%;
     height: 50px;
     border-radius: 20px;
+    font-size: 20px;
+    padding-left: 30px;
 }   
+
+.send-icon {
+    background-color: white;
+    border-radius: 20px;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 8px
+}
+
+.fa-paper-plane {
+    font-size: 30px;
+}
 
 
